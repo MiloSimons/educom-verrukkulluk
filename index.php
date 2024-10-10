@@ -18,11 +18,6 @@ $pieter = $usr->getUser(1);
 $keukenType1 = $kt->getKeukenType(1);
 
 /// RETURN
-//var_dump($artikelEight);
-//echo $artikelEight;
-
-//var_dump($pieter);
-//echo $pieter;
-
-//var_dump($pieter);
+var_dump($artikelEight);
+var_dump($pieter);
 var_dump($keukenType1);
