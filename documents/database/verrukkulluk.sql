@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 okt 2024 om 10:18
+-- Gegenereerd op: 10 okt 2024 om 14:51
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `artikel` (
 --
 
 INSERT INTO `artikel` (`id`, `naam`, `omschrijving`, `prijs`, `eenheid`, `verpakking`) VALUES
-(1, 'grand italia fusilli traditzionali', 'pasta fusilli', 1.99, 'gr', '500'),
+(1, 'grand italia fusilli tradizionali', 'pasta fusilli', 1.99, 'gr', '500'),
 (2, 'wahid kipfilet', 'kipfilet', 5.99, 'gr', '400'),
 (3, 'ah gele uien', 'uien', 1.09, 'stuks', '3'),
 (4, 'campina room culinair', 'kookroom', 1.29, 'ml', '200'),
@@ -94,8 +94,8 @@ CREATE TABLE `gerecht` (
 
 INSERT INTO `gerecht` (`id`, `keuken_id`, `type_id`, `user_id`, `datum_toegevoegd`, `titel`, `korte_omschrijving`, `lange_omschrijving`, `afbeelding`) VALUES
 (1, 1, 4, 1, '2024-10-09', 'pasta pesto', 'Recept met pasta en kip in pestosaus.', 'Makkelijk recept met pasta en kip in een lekkere romige pestosaus moet je een keer geprobeerd hebben!', 'https://marleyspoon.com/media/recipes/97654/main_photos/large/schnelle_paprika_hahnchen_penne-f98452974c20266a94c5d0aa1a25e0c4.jpeg'),
-(2, 1, 5, 1, '2024-10-02', 'tiramisu', 'Italiaans nagerecht met mascarpone en in koffie-gedompelde koekjes.', 'Tiramisu is een heel populair Italiaans dessert. De term tira mi su betekent letterlijk vertaald trek mij omhoog, maar je kan het ook interpreteren als maak me blij of beur me op. Het dessert is wereldwijd bekend, maar de oorsprong is onzeker. Er doen verschillende oorsprongsverhalen de ronde, maar ze hebben allemaal een ding gemeen: het toetje is ontstaan om kracht en energie te geven.', 'https://zininkoffie.nl/wp-content/uploads/2023/11/Tiramisu-maken.webp'),
-(3, 2, 6, 2, '2024-09-10', 'omas groentesoep', 'Ouderwets lekkere groentesoep.', 'Ouderwets lekker: omas groentesoep. Trek de schenkels en groenten langzaam op laag vuur en voeg later de fijngesneden groenten en gehaktballetjes toe voor extra smaak. Perfect als een heerlijk voor- of hoofdgerecht.', 'https://www.feelgoodbyfood.nl/wp-content/uploads/2020/10/IMG_4709-1320x880.jpg'),
+(2, 1, 5, 1, '2024-10-02', 'tiramisu', 'Italiaans nagerecht met mascarpone en in koffie-gedompelde koekjes.', 'Tiramisu is een heel populair Italiaans dessert. De term ‘tira mi su’ betekent letterlijk vertaald ‘trek mij omhoog’, maar je kan het ook interpreteren als ‘maak me blij’ of ‘beur me op’. Het dessert is wereldwijd bekend, maar de oorsprong is onzeker. Er doen verschillende oorsprongsverhalen de ronde, maar ze hebben allemaal een ding gemeen: het toetje is ontstaan om kracht en energie te geven.', 'https://zininkoffie.nl/wp-content/uploads/2023/11/Tiramisu-maken.webp'),
+(3, 2, 6, 2, '2024-09-10', 'omas groentesoep', 'Ouderwets lekkere groentesoep.', 'Ouderwets lekker: oma\'s groentesoep. Trek de schenkels en groenten langzaam op laag vuur en voeg later de fijngesneden groenten en gehaktballetjes toe voor extra smaak. Perfect als een heerlijk voor- of hoofdgerecht.', 'https://www.feelgoodbyfood.nl/wp-content/uploads/2020/10/IMG_4709-1320x880.jpg'),
 (4, 3, 7, 3, '2024-08-12', 'english breakfast', 'Een typisch Engels ontbijt.', 'Ooit bedacht als stevig ontbijt voor Engelse mijnwerkers. Nu gewoon om van te genieten; of je nou zwaar werk doet of niet.', 'https://iamafoodblog.b-cdn.net/wp-content/uploads/2019/02/full-english-7355w-2-1536x1025.webp');
 
 -- --------------------------------------------------------
@@ -108,10 +108,10 @@ CREATE TABLE `gerecht_info` (
   `id` int(11) NOT NULL,
   `record_type` char(1) NOT NULL,
   `gerecht_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `datum` date NOT NULL,
-  `nummeriekveld` int(11) NOT NULL,
-  `tekstveld` varchar(100) NOT NULL
+  `nummeriekveld` int(11) DEFAULT NULL,
+  `tekstveld` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -119,38 +119,64 @@ CREATE TABLE `gerecht_info` (
 --
 
 INSERT INTO `gerecht_info` (`id`, `record_type`, `gerecht_id`, `user_id`, `datum`, `nummeriekveld`, `tekstveld`) VALUES
-(1, 'B', 1, 0, '2024-10-09', 1, 'Snipper het uitje en fruit even aan in een scheutje olijfolie. Voeg de blokjes kip toe en bak ongeve'),
-(2, 'B', 1, 0, '2024-10-09', 2, 'Laat de pestosaus een paar minuutjes zachtjes pruttelen. Voeg dan de gekookte pasta toe en schep er '),
-(3, 'B', 1, 0, '2024-10-09', 3, 'Tip: deze pasta pesto is ook lekker met geraspte kaas. Gebruik ook eens stukjes vegetarische kip voo'),
-(4, 'O', 1, 2, '2024-10-11', 0, 'Heerlijk, zelfs mijn kinderen vonden het lekker!'),
-(5, 'O', 1, 3, '2024-10-10', 0, 'Volgende keer iets meer kruiden en dan is dit een perfect gerecht, een echte aanrader.'),
-(6, 'W', 1, 0, '2024-10-11', 4, ''),
-(7, 'F', 1, 2, '0000-00-00', 0, ''),
-(8, 'F', 1, 3, '0000-00-00', 0, ''),
-(9, 'B', 2, 0, '2024-10-02', 1, 'Klop de eidooiers met de helft van de suiker met een (hand)mixer met garde(s) tot een zeer romig men'),
-(10, 'B', 2, 0, '2024-10-02', 2, 'Doe de eiwitten met een snuf zout in een vetvrije kom en zorg dat de garde(s) van de mixer heel goed'),
-(11, 'B', 2, 0, '2024-10-02', 3, 'Meng de espresso met de drank naar keuze. Doop hier de lange vingers één voor één kort in en bedek d'),
-(12, 'B', 2, 0, '2024-10-02', 4, 'Bestuif voor het serveren met een dikke laag cacaopoeder.'),
-(13, 'O', 2, 1, '2024-10-02', 0, 'Dit is toch wel mijn best bedachte recept, al zeg ik het zelf ;)'),
-(14, 'O', 2, 3, '2024-10-04', 0, 'Voor mij veel te zoet! Geen geslaagd recept.'),
-(15, 'W', 2, 0, '2024-10-03', 2, ''),
-(16, 'F', 2, 1, '2024-10-03', 0, ''),
-(17, 'B', 3, 0, '2024-09-10', 1, 'Schenk het water in een soeppan. Voeg de schenkel, rundersoepblokjes en de bouillontabletten toe. Br'),
-(18, 'B', 3, 0, '2024-09-10', 2, 'Maak de schone theedoek vochtig, leg in een zeef en zeef de bouillon boven een andere pan. Spoel het'),
-(19, 'B', 3, 0, '2024-09-10', 3, 'Breng het gehakt op smaak met de nootmuskaat, peper en zout. Draai er kleine balletjes van en voeg s'),
-(20, 'O', 3, 3, '2024-10-10', 0, 'Smaakt precies zoals mijn oma hem vroeger ook maakte, pure nostalgie.'),
-(21, 'W', 3, 0, '2024-10-10', 5, ''),
-(22, 'F', 3, 1, '2024-10-10', 0, ''),
-(23, 'F', 3, 2, '2024-10-10', 0, ''),
-(24, 'F', 3, 3, '2024-10-09', 0, ''),
-(25, 'B', 4, 0, '2024-08-12', 1, 'Verhit de olie in een koekenpan en bak de braadworsten in 20 min. op middelhoog vuur rondom gaar. Ke'),
-(26, 'B', 4, 0, '2024-08-12', 2, 'Halveer ondertussen de tomaten overlangs. Bak met de snijkant naar beneden 4 min. op middelhoog vuur'),
-(27, 'B', 4, 0, '2024-08-12', 3, 'Verwarm ondertussen de bonen in een kleine pan op laag vuur en rooster het brood.'),
-(28, 'B', 4, 0, '2024-08-12', 4, 'Neem de braadworsten uit de pan en houd warm onder aluminiumfolie. Bak de eieren in het achtergeblev'),
-(29, 'B', 4, 0, '2024-08-12', 5, 'Snijd het brood schuin doormidden. Snijd elke braadworst schuin in 4 gelijke delen. Verdeel de braad'),
-(30, 'O', 4, 1, '2024-09-27', 0, 'Beetje flauw, verder een lekker gerecht.'),
-(31, 'W', 4, 0, '2024-09-19', 3, ''),
-(32, 'F', 4, 3, '2024-09-12', 0, '');
+(1, 'B', 1, NULL, '2024-10-09', 1, 'Snipper het uitje en fruit even aan in een scheutje olijfolie. Voeg de blokjes kip toe en bak ongeve'),
+(2, 'B', 1, NULL, '2024-10-09', 2, 'Laat de pestosaus een paar minuutjes zachtjes pruttelen. Voeg dan de gekookte pasta toe en schep er '),
+(3, 'B', 1, NULL, '2024-10-09', 3, 'Tip: deze pasta pesto is ook lekker met geraspte kaas. Gebruik ook eens stukjes vegetarische kip voo'),
+(4, 'O', 1, 2, '2024-10-11', NULL, 'Heerlijk, zelfs mijn kinderen vonden het lekker!'),
+(5, 'O', 1, 3, '2024-10-10', NULL, 'Volgende keer iets meer kruiden en dan is dit een perfect gerecht, een echte aanrader.'),
+(6, 'W', 1, NULL, '2024-10-11', 4, NULL),
+(7, 'F', 1, 2, '2024-10-10', NULL, NULL),
+(8, 'F', 1, 3, '2024-10-09', NULL, NULL),
+(9, 'B', 2, NULL, '2024-10-02', 1, 'Klop de eidooiers met de helft van de suiker met een (hand)mixer met garde(s) tot een zeer romig men'),
+(10, 'B', 2, NULL, '2024-10-02', 2, 'Doe de eiwitten met een snuf zout in een vetvrije kom en zorg dat de garde(s) van de mixer heel goed'),
+(11, 'B', 2, NULL, '2024-10-02', 3, 'Meng de espresso met de drank naar keuze. Doop hier de lange vingers één voor één kort in en bedek d'),
+(12, 'B', 2, NULL, '2024-10-02', 4, 'Bestuif voor het serveren met een dikke laag cacaopoeder.'),
+(13, 'O', 2, 1, '2024-10-02', NULL, 'Dit is toch wel mijn best bedachte recept, al zeg ik het zelf ;)'),
+(14, 'O', 2, 3, '2024-10-04', NULL, 'Voor mij veel te zoet! Geen geslaagd recept.'),
+(15, 'W', 2, NULL, '2024-10-03', 2, NULL),
+(16, 'F', 2, 1, '2024-10-03', NULL, NULL),
+(17, 'B', 3, NULL, '2024-09-10', 1, 'Schenk het water in een soeppan. Voeg de schenkel, rundersoepblokjes en de bouillontabletten toe. Br'),
+(18, 'B', 3, NULL, '2024-09-10', 2, 'Maak de schone theedoek vochtig, leg in een zeef en zeef de bouillon boven een andere pan. Spoel het'),
+(19, 'B', 3, NULL, '2024-09-10', 3, 'Breng het gehakt op smaak met de nootmuskaat, peper en zout. Draai er kleine balletjes van en voeg s'),
+(20, 'O', 3, 3, '2024-10-10', NULL, 'Smaakt precies zoals mijn oma hem vroeger ook maakte, pure nostalgie.'),
+(21, 'W', 3, NULL, '2024-10-10', 5, NULL),
+(22, 'F', 3, 1, '2024-10-10', NULL, NULL),
+(23, 'F', 3, 2, '2024-10-10', NULL, NULL),
+(24, 'F', 3, 3, '2024-10-09', NULL, NULL),
+(25, 'B', 4, NULL, '2024-08-12', 1, 'Verhit de olie in een koekenpan en bak de braadworsten in 20 min. op middelhoog vuur rondom gaar. Ke'),
+(26, 'B', 4, NULL, '2024-08-12', 2, 'Halveer ondertussen de tomaten overlangs. Bak met de snijkant naar beneden 4 min. op middelhoog vuur'),
+(27, 'B', 4, NULL, '2024-08-12', 3, 'Verwarm ondertussen de bonen in een kleine pan op laag vuur en rooster het brood.'),
+(28, 'B', 4, NULL, '2024-08-12', 4, 'Neem de braadworsten uit de pan en houd warm onder aluminiumfolie. Bak de eieren in het achtergeblev'),
+(29, 'B', 4, NULL, '2024-08-12', 5, 'Snijd het brood schuin doormidden. Snijd elke braadworst schuin in 4 gelijke delen. Verdeel de braad'),
+(30, 'O', 4, 1, '2024-09-27', NULL, 'Beetje flauw, verder een lekker gerecht.'),
+(31, 'W', 4, NULL, '2024-09-19', 3, NULL),
+(32, 'F', 4, 3, '2024-09-12', NULL, NULL),
+(33, 'W', 1, NULL, '2024-10-10', 3, NULL),
+(34, 'W', 1, NULL, '2024-10-09', 4, NULL),
+(35, 'W', 1, NULL, '2024-10-09', 5, NULL),
+(36, 'W', 1, NULL, '2024-10-10', 3, NULL),
+(37, 'W', 1, NULL, '2024-10-09', 2, NULL),
+(38, 'W', 1, NULL, '2024-10-09', 3, NULL),
+(39, 'W', 2, NULL, '2024-10-10', 2, NULL),
+(40, 'W', 2, NULL, '2024-10-17', 1, NULL),
+(41, 'W', 2, NULL, '2024-10-18', 3, NULL),
+(42, 'W', 2, NULL, '2024-10-09', 2, NULL),
+(43, 'W', 2, NULL, '2024-10-12', 4, NULL),
+(44, 'W', 2, NULL, '2024-10-23', 3, NULL),
+(45, 'W', 3, NULL, '2024-10-22', 4, NULL),
+(46, 'W', 3, NULL, '2024-10-25', 5, NULL),
+(47, 'W', 3, NULL, '2024-10-17', 5, NULL),
+(48, 'W', 3, NULL, '2024-10-16', 3, NULL),
+(49, 'W', 3, NULL, '2024-10-12', 4, NULL),
+(50, 'W', 3, NULL, '2024-10-22', 5, NULL),
+(51, 'W', 3, NULL, '2024-10-29', 4, NULL),
+(52, 'W', 4, NULL, '2024-10-30', 4, NULL),
+(53, 'W', 4, NULL, '2024-10-26', 2, NULL),
+(54, 'W', 4, NULL, '2024-10-27', 4, NULL),
+(55, 'W', 4, NULL, '2024-10-22', 2, NULL),
+(56, 'W', 4, NULL, '2024-10-11', 3, NULL),
+(61, 'W', 1, NULL, '2024-10-10', 2, NULL),
+(62, 'W', 1, NULL, '2024-10-09', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -314,7 +340,7 @@ ALTER TABLE `gerecht`
 -- AUTO_INCREMENT voor een tabel `gerecht_info`
 --
 ALTER TABLE `gerecht_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT voor een tabel `ingredient`
