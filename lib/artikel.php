@@ -8,14 +8,14 @@ class artikel {
         $this->connection = $connection;
     }
   
-    public function selecteerArtikel($artikel_id) {
+    public function getArtikel($artikel_id) {
 
         $sql = "select * from artikel where id = $artikel_id";
         
         $result = mysqli_query($this->connection, $sql);
         $artikel = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-        return($artikel);
+        return $artikel;
 
     }
 
