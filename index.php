@@ -7,11 +7,11 @@ require_once("lib/keukenType.php");
 require_once("lib/ingredient.php");
 
 /// INIT
-$db = new database();
-$art = new artikel($db->getConnection());
-$usr = new user($db->getConnection());
-$kt = new keukenType($db->getConnection());
-$ig = new ingredient($db->getConnection());
+$db = new Database();
+$art = new Artikel($db->getConnection());
+$usr = new User($db->getConnection());
+$kt = new KeukenType($db->getConnection());
+$ig = new Ingredient($db->getConnection());
 
 
 /// VERWERK 

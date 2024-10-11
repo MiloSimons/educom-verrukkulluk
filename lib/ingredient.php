@@ -2,7 +2,7 @@
 //require_once("lib/database.php");
 require_once("lib/artikel.php");
 
-class ingredient {
+class Ingredient {
 
     private $connection;
     private $db;
@@ -10,8 +10,8 @@ class ingredient {
 
     public function __construct($connection) {
         $this->connection = $connection;
-        $this->db = new database();
-        $this->art = new artikel($this->db->getConnection());
+        $this->db = new Database();
+        $this->art = new Artikel($this->db->getConnection());
     }     
 
     public function getIngredients($gerecht_id) {
