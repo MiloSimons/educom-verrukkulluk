@@ -1,6 +1,6 @@
 <?php
 //require_once("lib/database.php");
-require_once("lib/artikel.php");
+require_once("lib/Artikel.php");
 
 class Ingredient {
 
