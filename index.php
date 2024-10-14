@@ -6,6 +6,7 @@ require_once("lib/User.php");
 require_once("lib/KeukenType.php");
 require_once("lib/Ingredient.php");
 require_once("lib/GerechtInfo.php");
+require_once("lib/Gerecht.php");
 
 /// INIT
 $db = new Database();
@@ -14,6 +15,7 @@ $usr = new User($db->getConnection());
 $kt = new KeukenType($db->getConnection());
 $ig = new Ingredient($db->getConnection());
 $gerInf = new GerechtInfo($db->getConnection());
+$ger = new Gerecht($db->getConnection());
 
 
 /// VERWERK 
@@ -30,7 +32,8 @@ $ger1info = $gerInf->getGerechtInfo(1);
 $gerInf->addFavorite(1, 1);
 //$gerInf->deleteFavorite(1, 1);
 $ger1info = $gerInf->getGerechtInfo(1);
-var_dump($ger1info);
+//var_dump($ger1info);
+$gerecht2 = $ger->getGerecht(2);
 
 
 //$art_id = $ig->getArtikel_id($ingr["id"]);
@@ -48,3 +51,4 @@ var_dump($ger1info);
 
 //var_dump($ingr);
 //var_dump($ger3info);
+var_dump($gerecht2);

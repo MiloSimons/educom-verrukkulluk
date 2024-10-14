@@ -22,6 +22,7 @@ class GerechtInfo {
 
         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             echo"<pre>";
+            // Add user info for favorites and comments
             if($row["record_type"]== "F" || $row["record_type"]== "O") {
                 $user = $this->selectUser($row["user_id"]);
                 $gerecht_info[]=[$row, $user];
