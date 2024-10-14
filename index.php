@@ -18,6 +18,7 @@ $gerInf = new GerechtInfo($db->getConnection());
 $ger = new Gerecht($db->getConnection());
 
 
+
 /// VERWERK 
 $artikelEight = $art->getArtikel(8);
 $pieter = $usr->getUser(1);
@@ -36,6 +37,10 @@ $ger1info = $gerInf->getGerechtInfo(1);
 $gerecht2 = $ger->getGerecht(2);
 
 
+//make methods public in gerecht class for testing
+$testPriceMethod = $ger->calcPrice(2);
+
+
 //$art_id = $ig->getArtikel_id($ingr["id"]);
 //$artikel2 = $art->getArtikel($art_id);
 
@@ -51,4 +56,5 @@ $gerecht2 = $ger->getGerecht(2);
 
 //var_dump($ingr);
 //var_dump($ger3info);
-var_dump($gerecht2);
+//var_dump($gerecht2);
+var_dump($testPriceMethod);
