@@ -22,41 +22,39 @@ class Gerecht {
 
     }
   
-    public function getGerecht($gerecht_id) {
+    public function getGerecht($gerecht_ids) {
+        foreach((array)$gerecht_ids as $gerecht_id) {
+            $sql = "select * from gerecht where id = $gerecht_id";
+            
+            $result = mysqli_query($this->connection, $sql);
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-        // in myAdmin, beschrijving langer maken!!!!!!!!!!!!
+            $user        = $this->selectUser($row["user_id"]);
+            $ingredients = $this->selectIngredient($row["id"]);
+            $gerechtInfo = $this->selectGerechtInfo($row["id"]);
+            $keuken      = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
+            $type        = $this->selectKitchenOrType($row["type_id"]);
+            $favorieten  = $this->determineFavorite($gerechtInfo);
+            $ratings     = $this->selectRating($gerechtInfo);
+            $remarks     = $this->selectRemarks($gerechtInfo);
+            $steps       = $this->selectSteps($gerechtInfo);
+            $price       = $this->calcPrice($ingredients);
+            $calories    = $this->calcCalories($ingredients);
+            $stars       = $this->calcAVGRating($ratings);
 
-        $sql = "select * from gerecht where id = $gerecht_id";
-        
-        $result = mysqli_query($this->connection, $sql);
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-        $user        = $this->selectUser($row["user_id"]);
-        $ingredients = $this->selectIngredient($row["id"]);
-        $gerechtInfo = $this->selectGerechtInfo($row["id"]);
-        $keuken      = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
-        $type        = $this->selectKitchenOrType($row["type_id"]);
-        $favorieten  = $this->determineFavorite($gerechtInfo);
-        $ratings     = $this->selectRating($gerechtInfo);
-        $remarks     = $this->selectRemarks($gerechtInfo);
-        $steps       = $this->selectSteps($gerechtInfo);
-        $price       = $this->calcPrice($ingredients);
-        $calories    = $this->calcCalories($ingredients);
-        $stars       = $this->calcAVGRating($ratings);
-
-        $gerecht[]=["Gerecht"=>$row,
-                    "User"=>$user,
-                    "Ingredients"=>$ingredients,
-                    "Kitchen"=>$keuken,
-                    "Type"=>$type,
-                    "Favorites"=>$favorieten,
-                    "Ratings"=>$ratings,
-                    "Remarks"=>$remarks,
-                    "Steps"=>$steps,
-                    "Price"=>$price,
-                    "Calories"=>$calories,
-                    "Stars"=>$stars];        
-
+            $gerecht[]=["Gerecht"=>$row, //$gerecht[] voor meerder gerechten ophalen?
+                        "User"=>$user,
+                        "Ingredients"=>$ingredients,
+                        "Kitchen"=>$keuken,
+                        "Type"=>$type,
+                        "Favorites"=>$favorieten,
+                        "Ratings"=>$ratings,
+                        "Remarks"=>$remarks,
+                        "Steps"=>$steps,
+                        "Price"=>$price,
+                        "Calories"=>$calories,
+                        "Stars"=>$stars];        
+        }
         return $gerecht;
 
     }

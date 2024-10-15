@@ -35,6 +35,7 @@ $gerInf->addFavorite(1, 1);
 $ger1info = $gerInf->getGerechtInfo(1);
 //var_dump($ger1info);
 $gerecht2 = $ger->getGerecht(2);
+$gerecht1en2 = $ger->getGerecht([1,2]);
 //$ingGer2 = $ger->selectIngredient(2);
 //$gerInf2 = $ger->selectGerechtInfo(2);
 //var_dump($gerInf2);
@@ -71,4 +72,6 @@ $gerecht2 = $ger->getGerecht(2);
 //var_dump($testRating);
 //var_dump($ratingAVG);
 //var_dump($testFavo);
+
 var_dump($gerecht2);
+var_dump($gerecht1en2);
