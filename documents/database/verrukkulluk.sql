@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 15 okt 2024 om 09:52
+-- Gegenereerd op: 15 okt 2024 om 14:03
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -83,8 +83,8 @@ CREATE TABLE `gerecht` (
   `type_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `datum_toegevoegd` date NOT NULL,
-  `titel` varchar(50) NOT NULL,
-  `korte_omschrijving` varchar(100) NOT NULL,
+  `titel` varchar(100) NOT NULL,
+  `korte_omschrijving` varchar(200) NOT NULL,
   `lange_omschrijving` varchar(1000) NOT NULL,
   `afbeelding` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -112,7 +112,7 @@ CREATE TABLE `gerecht_info` (
   `user_id` int(11) DEFAULT NULL,
   `datum` date NOT NULL,
   `nummeriekveld` int(11) DEFAULT NULL,
-  `tekstveld` varchar(100) DEFAULT NULL
+  `tekstveld` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -120,35 +120,35 @@ CREATE TABLE `gerecht_info` (
 --
 
 INSERT INTO `gerecht_info` (`id`, `record_type`, `gerecht_id`, `user_id`, `datum`, `nummeriekveld`, `tekstveld`) VALUES
-(1, 'B', 1, NULL, '2024-10-09', 1, 'Snipper het uitje en fruit even aan in een scheutje olijfolie. Voeg de blokjes kip toe en bak ongeve'),
-(2, 'B', 1, NULL, '2024-10-09', 2, 'Laat de pestosaus een paar minuutjes zachtjes pruttelen. Voeg dan de gekookte pasta toe en schep er '),
-(3, 'B', 1, NULL, '2024-10-09', 3, 'Tip: deze pasta pesto is ook lekker met geraspte kaas. Gebruik ook eens stukjes vegetarische kip voo'),
+(1, 'B', 1, NULL, '2024-10-09', 1, 'Snipper het uitje en fruit even aan in een scheutje olijfolie. Voeg de blokjes kip toe en bak ongeveer 5 minuten. Kook ondertussen de pasta gaar. Voeg de (zelfgemaakte) pesto en room toe aan de kip en roer goed door. Proef nog even of er nog peper of zout bij moet.'),
+(2, 'B', 1, NULL, '2024-10-09', 2, 'Laat de pestosaus een paar minuutjes zachtjes pruttelen. Voeg dan de gekookte pasta toe en schep er doorheen. Halveer de tomaatjes en roer ook door de pasta pesto en verwarm nog een minuutje mee. Serveer de pasta pesto in de pan of op een bord met een handje rucola en de geroosterde pijnboompitten.'),
+(3, 'B', 1, NULL, '2024-10-09', 3, 'Tip: deze pasta pesto is ook lekker met geraspte kaas. Gebruik ook eens stukjes vegetarische kip voor een vegetarische variant op de kip pesto.'),
 (4, 'O', 1, 2, '2024-10-11', NULL, 'Heerlijk, zelfs mijn kinderen vonden het lekker!'),
 (5, 'O', 1, 3, '2024-10-10', NULL, 'Volgende keer iets meer kruiden en dan is dit een perfect gerecht, een echte aanrader.'),
 (6, 'W', 1, NULL, '2024-10-11', 4, NULL),
 (7, 'F', 1, 2, '2024-10-10', NULL, NULL),
 (8, 'F', 1, 3, '2024-10-09', NULL, NULL),
-(9, 'B', 2, NULL, '2024-10-02', 1, 'Klop de eidooiers met de helft van de suiker met een (hand)mixer met garde(s) tot een zeer romig men'),
-(10, 'B', 2, NULL, '2024-10-02', 2, 'Doe de eiwitten met een snuf zout in een vetvrije kom en zorg dat de garde(s) van de mixer heel goed'),
-(11, 'B', 2, NULL, '2024-10-02', 3, 'Meng de espresso met de drank naar keuze. Doop hier de lange vingers één voor één kort in en bedek d'),
+(9, 'B', 2, NULL, '2024-10-02', 1, 'Klop de eidooiers met de helft van de suiker met een (hand)mixer met garde(s) tot een zeer romig mengsel, dit duurt zeker 5 minuten. Voeg vervolgens de mascarpone toe aan het eidooiermengsel en klop dit tot een homogene massa.'),
+(10, 'B', 2, NULL, '2024-10-02', 2, 'Doe de eiwitten met een snuf zout in een vetvrije kom en zorg dat de garde(s) van de mixer heel goed schoongemaakt zijn. Klop de eiwitten met een (hand)mixer met garde(s) stijf. Voeg lepel voor lepel de resterende suiker toe. Spatel het stijfgeklopte eiwit door het mascarponemengsel en meng dit tot een egale crème.'),
+(11, 'B', 2, NULL, '2024-10-02', 3, 'Meng de espresso met de drank naar keuze. Doop hier de lange vingers één voor één kort in en bedek daarmee de bodem van een (oven)schaal van ongeveer 25×18 centimeter. Verdeel hier de helft van het tiramisumengsel overheen en strijk dit glad. Herhaal beide stappen en zet de tiramisu minimaal 4 uur in de koelkast om op te stijven.'),
 (12, 'B', 2, NULL, '2024-10-02', 4, 'Bestuif voor het serveren met een dikke laag cacaopoeder.'),
 (13, 'O', 2, 1, '2024-10-02', NULL, 'Dit is toch wel mijn best bedachte recept, al zeg ik het zelf ;)'),
 (14, 'O', 2, 3, '2024-10-04', NULL, 'Voor mij veel te zoet! Geen geslaagd recept.'),
 (15, 'W', 2, NULL, '2024-10-03', 2, NULL),
 (16, 'F', 2, 1, '2024-10-03', NULL, NULL),
-(17, 'B', 3, NULL, '2024-09-10', 1, 'Schenk het water in een soeppan. Voeg de schenkel, rundersoepblokjes en de bouillontabletten toe. Br'),
-(18, 'B', 3, NULL, '2024-09-10', 2, 'Maak de schone theedoek vochtig, leg in een zeef en zeef de bouillon boven een andere pan. Spoel het'),
-(19, 'B', 3, NULL, '2024-09-10', 3, 'Breng het gehakt op smaak met de nootmuskaat, peper en zout. Draai er kleine balletjes van en voeg s'),
+(17, 'B', 3, NULL, '2024-09-10', 1, 'Schenk het water in een soeppan. Voeg de schenkel, rundersoepblokjes en de bouillontabletten toe. Breng aan de kook, zet het vuur laag en laat 2 uur zachtjes koken. Schep regelmatig het schuim dat komt bovendrijven met een schuimspaan van de soep af.'),
+(18, 'B', 3, NULL, '2024-09-10', 2, 'Maak de schone theedoek vochtig, leg in een zeef en zeef de bouillon boven een andere pan. Spoel het vlees af. Haal het vlees van de schenkel, snijd in kleine stukjes en voeg samen met de rest van het rundvlees toe aan de bouillon.'),
+(19, 'B', 3, NULL, '2024-09-10', 3, 'Breng het gehakt op smaak met de nootmuskaat, peper en zout. Draai er kleine balletjes van en voeg samen met de soepgroente toe aan de soep. Breng de soep opnieuw aan de kook, zet het vuur laag en kook nog 8 min. door. Breng op smaak met peper en eventueel zout. Snijd de bosui in dunne ringetjes en roer vlak voor het serveren door de soep.'),
 (20, 'O', 3, 3, '2024-10-10', NULL, 'Smaakt precies zoals mijn oma hem vroeger ook maakte, pure nostalgie.'),
 (21, 'W', 3, NULL, '2024-10-10', 5, NULL),
 (22, 'F', 3, 1, '2024-10-10', NULL, NULL),
 (23, 'F', 3, 2, '2024-10-10', NULL, NULL),
 (24, 'F', 3, 3, '2024-10-09', NULL, NULL),
-(25, 'B', 4, NULL, '2024-08-12', 1, 'Verhit de olie in een koekenpan en bak de braadworsten in 20 min. op middelhoog vuur rondom gaar. Ke'),
-(26, 'B', 4, NULL, '2024-08-12', 2, 'Halveer ondertussen de tomaten overlangs. Bak met de snijkant naar beneden 4 min. op middelhoog vuur'),
+(25, 'B', 4, NULL, '2024-08-12', 1, 'Verhit de olie in een koekenpan en bak de braadworsten in 20 min. op middelhoog vuur rondom gaar. Keer regelmatig. Verhit ondertussen een koekenpan zonder olie of boter en bak de ontbijtspek op middelhoog vuur in 5 min. goudbruin en krokant. Voeg de ahornsiroop toe, schep om en neem het spek uit de pan. Laat uitlekken op keukenpapier.'),
+(26, 'B', 4, NULL, '2024-08-12', 2, 'Halveer ondertussen de tomaten overlangs. Bak met de snijkant naar beneden 4 min. op middelhoog vuur in het achtergebleven bakvet van het ontbijtspek.'),
 (27, 'B', 4, NULL, '2024-08-12', 3, 'Verwarm ondertussen de bonen in een kleine pan op laag vuur en rooster het brood.'),
-(28, 'B', 4, NULL, '2024-08-12', 4, 'Neem de braadworsten uit de pan en houd warm onder aluminiumfolie. Bak de eieren in het achtergeblev'),
-(29, 'B', 4, NULL, '2024-08-12', 5, 'Snijd het brood schuin doormidden. Snijd elke braadworst schuin in 4 gelijke delen. Verdeel de braad'),
+(28, 'B', 4, NULL, '2024-08-12', 4, 'Neem de braadworsten uit de pan en houd warm onder aluminiumfolie. Bak de eieren in het achtergebleven bakvet. Bestrooi met peper en eventueel zout.'),
+(29, 'B', 4, NULL, '2024-08-12', 5, 'Snijd het brood schuin doormidden. Snijd elke braadworst schuin in 4 gelijke delen. Verdeel de braadworst, eieren, bonen, tomaat, het ontbijtspek en brood over de borden en serveer.'),
 (30, 'O', 4, 1, '2024-09-27', NULL, 'Beetje flauw, verder een lekker gerecht.'),
 (31, 'W', 4, NULL, '2024-09-19', 3, NULL),
 (32, 'F', 4, 3, '2024-09-12', NULL, NULL),

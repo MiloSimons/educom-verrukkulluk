@@ -15,14 +15,14 @@ class Ingredient {
     }     
 
     public function getIngredients($gerecht_id) {
-        
+        // make one array out of it, appending every ingredient with all artikel info exc/ id.
         $sql = "select * from ingredient where gerecht_id = $gerecht_id";
         
         $result = mysqli_query($this->connection, $sql);
         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             echo"<pre>";
             $artikel = $this->selectArtikel($row["artikel_id"]);
-            $ingredients[]=[$row, $artikel];
+            $ingredients[]=["Ingredient"=>$row, "Article"=>$artikel];
         }
 
         return $ingredients;

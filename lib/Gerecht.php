@@ -29,22 +29,33 @@ class Gerecht {
         $sql = "select * from gerecht where id = $gerecht_id";
         
         $result = mysqli_query($this->connection, $sql);
-        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) { //Dont need the loop right?
-            echo"<pre>";
-            $user        = $this->selectUser($row["user_id"]);
-            $ingredient  = $this->selectIngredient($row["id"]);
-            $gerechtInfo = $this->selectGerechtInfo($row["id"]);
-            $keuken      = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
-            $type        = $this->selectKitchenOrType($row["type_id"]);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-            $gerecht[]=[$row, $user, $ingredient];
-            //$price = $this->calcPrice($ingredient);
-            //$calories = $this->calcCalories
-            //$rating = $this->selectRating
-            //$bereidingswijze/stappen = $this->selectSteps($gerechtInfo)
-            //$favorieten = $this->determineFavorite
-            //$avgRating = $this->calcRating($ratings);
-        }
+        $user        = $this->selectUser($row["user_id"]);
+        $ingredients = $this->selectIngredient($row["id"]);
+        $gerechtInfo = $this->selectGerechtInfo($row["id"]);
+        $keuken      = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
+        $type        = $this->selectKitchenOrType($row["type_id"]);
+        $favorieten  = $this->determineFavorite($gerechtInfo);
+        $ratings     = $this->selectRating($gerechtInfo);
+        $remarks     = $this->selectRemarks($gerechtInfo);
+        $steps       = $this->selectSteps($gerechtInfo);
+        $price       = $this->calcPrice($ingredients);
+        $calories    = $this->calcCalories($ingredients);
+        $stars       = $this->calcAVGRating($ratings);
+
+        $gerecht[]=["Gerecht"=>$row,
+                    "User"=>$user,
+                    "Ingredients"=>$ingredients,
+                    "Kitchen"=>$keuken,
+                    "Type"=>$type,
+                    "Favorites"=>$favorieten,
+                    "Ratings"=>$ratings,
+                    "Remarks"=>$remarks,
+                    "Steps"=>$steps,
+                    "Price"=>$price,
+                    "Calories"=>$calories,
+                    "Stars"=>$stars];        
 
         return $gerecht;
 
@@ -56,12 +67,12 @@ class Gerecht {
         return $user;
     }
 
-    public function selectIngredient($gerecht_id) {
+    private function selectIngredient($gerecht_id) {
         $ingredient = $this->ing->getIngredients($gerecht_id);
         return $ingredient;
     }
     
-    public function selectGerechtInfo($gerecht_id) {
+    private function selectGerechtInfo($gerecht_id) {
         $gerechtInfo = $this->gerInfo->getGerechtInfo($gerecht_id);
         return $gerechtInfo;
     }
@@ -81,7 +92,7 @@ class Gerecht {
     
     
     
-    public function selectRating($gerechtInfo) {
+    private function selectRating($gerechtInfo) {
         $ratings = [];
         foreach ($gerechtInfo as $g) {
             if(count($g) == 7 and $g["record_type"]=="W") {
@@ -92,7 +103,7 @@ class Gerecht {
         return $ratings;
     }
     
-    
+    //SORT BASED ON NUMMERIEKVELD? --> e.g., step 1, step 2, etc.
     private function selectSteps($gerechtInfo) {
         $steps = [];
         foreach ($gerechtInfo as $g) {
@@ -116,15 +127,22 @@ class Gerecht {
             }
         }
         return $remarks;
-    }
-
+    }    
     
-    /*
-    private function determineFavorite() {
+    //WHAT DOES THIS FUNCTION NEED TO DO EXACTLY?
+    private function determineFavorite($gerechtInfo) {
+        $favorites = [];
+        foreach ($gerechtInfo as $g) {
+            if(count($g) == 2){
+                foreach($g as $f) {
+                    if(count($f)==7 and $f["record_type"]=="F"){
+                        $favorites[] = $g; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
+                    }                
+                }                    
+            }
+        }
         return $favorites;
     }
-    
-    */
 
     private function calcCalories($ingredients) {
         $calories = 0;
@@ -172,7 +190,7 @@ class Gerecht {
         return round($price, 2); //round not needed?
     }
 
-    public function calcAVGRating($ratings) {
+    private function calcAVGRating($ratings) {
         $ratingTotal = 0;
         $count = 0;
         foreach ($ratings as $rating) {

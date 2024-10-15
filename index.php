@@ -35,16 +35,17 @@ $gerInf->addFavorite(1, 1);
 $ger1info = $gerInf->getGerechtInfo(1);
 //var_dump($ger1info);
 $gerecht2 = $ger->getGerecht(2);
-$ingGer2 = $ger->selectIngredient(2);
-$gerInf2 = $ger->selectGerechtInfo(2);
+//$ingGer2 = $ger->selectIngredient(2);
+//$gerInf2 = $ger->selectGerechtInfo(2);
 //var_dump($gerInf2);
 
 //make methods public in gerecht class for testing
 //$testPriceMethod = $ger->calcCalories($ingGer2);
 //$testSteps = $ger->selectSteps($gerInf2);
 //$testRemarks = $ger->selectRemarks($gerInf2);
-$testRating = $ger->selectRating($gerInf2);
-$ratingAVG = $ger->calcAVGRating($testRating);
+//$testRating = $ger->selectRating($gerInf2);
+//$ratingAVG = $ger->calcAVGRating($testRating);
+//$testFavo = $ger->determineFavorite($gerInf2);
 
 
 //$art_id = $ig->getArtikel_id($ingr["id"]);
@@ -67,5 +68,7 @@ $ratingAVG = $ger->calcAVGRating($testRating);
 //var_dump($testPriceMethod);
 //var_dump($testSteps);
 //var_dump($testRemarks);
-var_dump($testRating);
-var_dump($ratingAVG);
+//var_dump($testRating);
+//var_dump($ratingAVG);
+//var_dump($testFavo);
+var_dump($gerecht2);

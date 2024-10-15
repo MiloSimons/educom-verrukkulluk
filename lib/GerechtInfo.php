@@ -25,7 +25,7 @@ class GerechtInfo {
             // Add user info for favorites and comments
             if($row["record_type"]== "F" || $row["record_type"]== "O") {
                 $user = $this->selectUser($row["user_id"]);
-                $gerecht_info[]=[$row, $user];
+                $gerecht_info[]=["RecipeInfo"=>$row, "User"=>$user];
             } else {
             $gerecht_info[]=$row;
             }
@@ -39,6 +39,7 @@ class GerechtInfo {
         return $user;
     }
 
+    //private?
     public function addFavorite($gerecht_id, $user_id) { //of moet je hier een user meegeven ipv een user_id? and what about date?
         // Only add favorite if it does not exists already for that recipe + user combo        
         $sql = "select * from gerecht_info where gerecht_id = $gerecht_id and user_id = $user_id and record_type = 'F'";
