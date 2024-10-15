@@ -32,6 +32,13 @@ class Gerecht {
             $user = $this->selectUser($row["user_id"]);
             $ingredient = $this->selectIngredient($row["id"]);
             $gerecht[]=[$row, $user, $ingredient];
+            //$price = $this->calcPrice($ingredient);
+            //$keuken = $this->selectKitchen
+            //$type = $this->selectType
+            //$calories = $this->calcCalories
+            //$rating = $this->selectRating
+            //$bereidingswijze/stappen = $this->selectSteps
+            //$favorieten = $this->determineFavorite
         }
 
         return $gerecht;
@@ -44,41 +51,10 @@ class Gerecht {
         return $user;
     }
 
-    private function selectIngredient($gerecht_id) {
+    public function selectIngredient($gerecht_id) {
         $ingredient = $this->ing->getIngredients($gerecht_id);
         return $ingredient;
-    }
-
-    //Make these public or add this info to the constructor?
-    private function calcCalories($gerecht_id) {
-        // ? we dont have calorie info, base it on what?
-        return $calories;
-    }
-
-    //Make private again?
-    public function calcPrice($gerecht_id) {
-        $ingredients = $this->selectIngredient($gerecht_id);
-        $price = 0;
-
-        foreach ($ingredients as $ingrAndArti) {
-            foreach ($ingrAndArti as $i) {
-                // Get aantal from ingredient:
-                if (count($i) == 4) {
-                    $needed = floatval($i["aantal"]);
-                }
-                // Get verpakking and prijs from artikel:
-                if (count($i) == 6) {
-                    $package = floatval($i["verpakking"]);
-                    $packagePrice = floatval($i["prijs"]);
-                }            
-            }
-
-            //calculate price per ingredient, always round up
-            $ingrPrice = ceil($needed/$package)*$packagePrice;
-            $price = $price + $ingrPrice;
-        }        
-        return round($price, 2);
-    }
+    }  
 
     /*
     private function selectRating() {
@@ -106,5 +82,53 @@ class Gerecht {
     }
     
     */
+
+    //Make these public or add this info to the constructor?
+    private function calcCalories($ingredients) {
+        $calories = 0;
+
+        foreach ($ingredients as $ingrAndArti) {
+            foreach ($ingrAndArti as $i) {
+                // Get aantal from ingredient:
+                if (count($i) == 4) {
+                    $needed = floatval($i["aantal"]);
+                }
+                // Get verpakking and calorieen from artikel:
+                if (count($i) == 7) {
+                    $package = floatval($i["verpakking"]);
+                    $packageCalories = floatval($i["calorieen"]);
+                }            
+            }
+
+            //calculate price per ingredient, always round up
+            $ingrCalories = ($packageCalories/$package)*$needed;
+            $calories += $ingrCalories;
+        }        
+        return round($calories, 2);
+    }  
+
+    //Make private again?
+    private function calcPrice($ingredients) {
+        $price = 0;
+
+        foreach ($ingredients as $ingrAndArti) {
+            foreach ($ingrAndArti as $i) {
+                // Get aantal from ingredient:
+                if (count($i) == 4) {
+                    $needed = floatval($i["aantal"]);
+                }
+                // Get verpakking and prijs from artikel:
+                if (count($i) == 7) {
+                    $package = floatval($i["verpakking"]);
+                    $packagePrice = floatval($i["prijs"]);
+                }            
+            }
+
+            //calculate price per ingredient, always round up
+            $ingrPrice = ceil($needed/$package)*$packagePrice;
+            $price += $ingrPrice;
+        }        
+        return round($price, 2);
+    }
 
 }

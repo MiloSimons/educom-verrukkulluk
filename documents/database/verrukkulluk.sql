@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 okt 2024 om 14:51
+-- Gegenereerd op: 15 okt 2024 om 09:52
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -33,42 +33,43 @@ CREATE TABLE `artikel` (
   `omschrijving` varchar(100) NOT NULL,
   `prijs` float NOT NULL,
   `eenheid` varchar(50) NOT NULL,
-  `verpakking` varchar(50) NOT NULL
+  `verpakking` varchar(50) NOT NULL,
+  `calorieen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `artikel`
 --
 
-INSERT INTO `artikel` (`id`, `naam`, `omschrijving`, `prijs`, `eenheid`, `verpakking`) VALUES
-(1, 'grand italia fusilli tradizionali', 'pasta fusilli', 1.99, 'gr', '500'),
-(2, 'wahid kipfilet', 'kipfilet', 5.99, 'gr', '400'),
-(3, 'ah gele uien', 'uien', 1.09, 'stuks', '3'),
-(4, 'campina room culinair', 'kookroom', 1.29, 'ml', '200'),
-(5, 'ah cherrytomaten', 'cherrytomaten', 1.25, 'gr', '250'),
-(6, 'ah geroosterde pijnboompitten', 'pijnboompitten', 2.09, 'gr', '30'),
-(7, 'ah rucola', 'rucola', 1.09, 'gr', '85'),
-(8, 'grand italia pesto rosso', 'rode pesto', 2.69, 'gr', '90'),
-(9, 'ah keukenzout met jodium', 'keukenzout', 0.59, 'gr', '500'),
-(10, 'catine pellegrino marsala fine', 'likeur', 10.49, 'ml', '750'),
-(11, 'ah lange vingers', 'lange vingers', 1.29, 'gr', '200'),
-(12, 'ah witte vrije uitloopeieren m', 'eieren', 1.69, 'stuks', '6'),
-(13, 'van gilse kristalsuiker', 'kristalsuiker', 1.39, 'gr', '1000'),
-(14, 'ah mascarpone 80+', 'mascarpone', 1.69, 'gr', '250'),
-(15, 'blooker cacaopoeder', 'cacaopoeder', 3.09, 'gr', '250'),
-(16, 'ah schenkel met been', 'schenkel met been', 3.24, 'gr', '270'),
-(17, 'ah rundersoepvlees', 'soepvlees', 5.41, 'gr', '315'),
-(18, 'ah bouillon rund', 'runder bouillon', 0.59, 'stuk', '12'),
-(19, 'ah half-om-half gehakt', 'half-om-half gehakt', 3.95, 'gr', '500'),
-(20, 'verstegen nootmuskaat gemalen', 'nootmuskaat', 3.99, 'gr', '40'),
-(21, 'ah fijne soepgroenten grootverpakking', 'soepgroenten', 1.99, 'gr', '400'),
-(22, 'ah bosui', 'bosui', 0.92, 'stuk', '1'),
-(23, 'ah scharrel braadwort', 'braadworst', 3.99, 'stuk', '4'),
-(24, 'ah gerookt ontbijtspek', 'ontbijtspek', 2.94, 'gr', '120'),
-(25, 'ah biologisch ahornsiroop', 'ahornsiroop', 5.99, 'ml', '190'),
-(26, 'ah tasty tom trostomaten', 'trostomaten', 2.99, 'gr', '380'),
-(27, 'ah witte bonen in tomatensaus', 'witte bonen in tomatensaus', 0.85, 'gr', '400'),
-(28, 'ah extra lang lekker tijger wit heel', 'wit tijgerbrood', 1.29, 'sneetjes', '22');
+INSERT INTO `artikel` (`id`, `naam`, `omschrijving`, `prijs`, `eenheid`, `verpakking`, `calorieen`) VALUES
+(1, 'grand italia fusilli tradizionali', 'pasta fusilli', 1.99, 'gr', '500', 345),
+(2, 'wahid kipfilet', 'kipfilet', 5.99, 'gr', '400', 270),
+(3, 'ah gele uien', 'uien', 1.09, 'stuks', '3', 40),
+(4, 'campina room culinair', 'kookroom', 1.29, 'ml', '200', 575),
+(5, 'ah cherrytomaten', 'cherrytomaten', 1.25, 'gr', '250', 10),
+(6, 'ah geroosterde pijnboompitten', 'pijnboompitten', 2.09, 'gr', '30', 5),
+(7, 'ah rucola', 'rucola', 1.09, 'gr', '85', 24),
+(8, 'grand italia pesto rosso', 'rode pesto', 2.69, 'gr', '90', 130),
+(9, 'ah keukenzout met jodium', 'keukenzout', 0.59, 'gr', '500', 4),
+(10, 'catine pellegrino marsala fine', 'likeur', 10.49, 'ml', '750', 138),
+(11, 'ah lange vingers', 'lange vingers', 1.29, 'gr', '200', 285),
+(12, 'ah witte vrije uitloopeieren m', 'eieren', 1.69, 'stuks', '6', 160),
+(13, 'van gilse kristalsuiker', 'kristalsuiker', 1.39, 'gr', '1000', 600),
+(14, 'ah mascarpone 80+', 'mascarpone', 1.69, 'gr', '250', 230),
+(15, 'blooker cacaopoeder', 'cacaopoeder', 3.09, 'gr', '250', 27),
+(16, 'ah schenkel met been', 'schenkel met been', 3.24, 'gr', '270', 21),
+(17, 'ah rundersoepvlees', 'soepvlees', 5.41, 'gr', '315', 329),
+(18, 'ah bouillon rund', 'runder bouillon', 0.59, 'stuk', '12', 45),
+(19, 'ah half-om-half gehakt', 'half-om-half gehakt', 3.95, 'gr', '500', 380),
+(20, 'verstegen nootmuskaat gemalen', 'nootmuskaat', 3.99, 'gr', '40', 8),
+(21, 'ah fijne soepgroenten grootverpakking', 'soepgroenten', 1.99, 'gr', '400', 90),
+(22, 'ah bosui', 'bosui', 0.92, 'stuk', '1', 35),
+(23, 'ah scharrel braadwort', 'braadworst', 3.99, 'stuk', '4', 390),
+(24, 'ah gerookt ontbijtspek', 'ontbijtspek', 2.94, 'gr', '120', 280),
+(25, 'ah biologisch ahornsiroop', 'ahornsiroop', 5.99, 'ml', '190', 145),
+(26, 'ah tasty tom trostomaten', 'trostomaten', 2.99, 'gr', '380', 60),
+(27, 'ah witte bonen in tomatensaus', 'witte bonen in tomatensaus', 0.85, 'gr', '400', 195),
+(28, 'ah extra lang lekker tijger wit heel', 'wit tijgerbrood', 1.29, 'sneetjes', '22', 410);
 
 -- --------------------------------------------------------
 
@@ -94,8 +95,8 @@ CREATE TABLE `gerecht` (
 
 INSERT INTO `gerecht` (`id`, `keuken_id`, `type_id`, `user_id`, `datum_toegevoegd`, `titel`, `korte_omschrijving`, `lange_omschrijving`, `afbeelding`) VALUES
 (1, 1, 4, 1, '2024-10-09', 'pasta pesto', 'Recept met pasta en kip in pestosaus.', 'Makkelijk recept met pasta en kip in een lekkere romige pestosaus moet je een keer geprobeerd hebben!', 'https://marleyspoon.com/media/recipes/97654/main_photos/large/schnelle_paprika_hahnchen_penne-f98452974c20266a94c5d0aa1a25e0c4.jpeg'),
-(2, 1, 5, 1, '2024-10-02', 'tiramisu', 'Italiaans nagerecht met mascarpone en in koffie-gedompelde koekjes.', 'Tiramisu is een heel populair Italiaans dessert. De term tira mi su betekent letterlijk vertaald trek mij omhoog, maar je kan het ook interpreteren als maak me blij of beur me op. Het dessert is wereldwijd bekend, maar de oorsprong is onzeker. Er doen verschillende oorsprongsverhalen de ronde, maar ze hebben allemaal een ding gemeen: het toetje is ontstaan om kracht en energie te geven.', 'https://zininkoffie.nl/wp-content/uploads/2023/11/Tiramisu-maken.webp'),
-(3, 2, 6, 2, '2024-09-10', 'omas groentesoep', 'Ouderwets lekkere groentesoep.', 'Ouderwets lekker: omas groentesoep. Trek de schenkels en groenten langzaam op laag vuur en voeg later de fijngesneden groenten en gehaktballetjes toe voor extra smaak. Perfect als een heerlijk voor- of hoofdgerecht.', 'https://www.feelgoodbyfood.nl/wp-content/uploads/2020/10/IMG_4709-1320x880.jpg'),
+(2, 1, 5, 1, '2024-10-02', 'tiramisu', 'Italiaans nagerecht met mascarpone en in koffie-gedompelde koekjes.', 'Tiramisu is een heel populair Italiaans dessert. De term ‘tira mi su’ betekent letterlijk vertaald ‘trek mij omhoog’, maar je kan het ook interpreteren als ‘maak me blij’ of ‘beur me op’. Het dessert is wereldwijd bekend, maar de oorsprong is onzeker. Er doen verschillende oorsprongsverhalen de ronde, maar ze hebben allemaal een ding gemeen: het toetje is ontstaan om kracht en energie te geven.', 'https://zininkoffie.nl/wp-content/uploads/2023/11/Tiramisu-maken.webp'),
+(3, 2, 6, 2, '2024-09-10', 'omas groentesoep', 'Ouderwets lekkere groentesoep.', 'Ouderwets lekker: oma\'s groentesoep. Trek de schenkels en groenten langzaam op laag vuur en voeg later de fijngesneden groenten en gehaktballetjes toe voor extra smaak. Perfect als een heerlijk voor- of hoofdgerecht.', 'https://www.feelgoodbyfood.nl/wp-content/uploads/2020/10/IMG_4709-1320x880.jpg'),
 (4, 3, 7, 3, '2024-08-12', 'english breakfast', 'Een typisch Engels ontbijt.', 'Ooit bedacht als stevig ontbijt voor Engelse mijnwerkers. Nu gewoon om van te genieten; of je nou zwaar werk doet of niet.', 'https://iamafoodblog.b-cdn.net/wp-content/uploads/2019/02/full-english-7355w-2-1536x1025.webp');
 
 -- --------------------------------------------------------
@@ -176,7 +177,8 @@ INSERT INTO `gerecht_info` (`id`, `record_type`, `gerecht_id`, `user_id`, `datum
 (55, 'W', 4, NULL, '2024-10-22', 2, NULL),
 (56, 'W', 4, NULL, '2024-10-11', 3, NULL),
 (61, 'W', 1, NULL, '2024-10-10', 2, NULL),
-(62, 'W', 1, NULL, '2024-10-09', 3, NULL);
+(62, 'W', 1, NULL, '2024-10-09', 3, NULL),
+(69, 'F', 1, 1, '0000-00-00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -340,7 +342,7 @@ ALTER TABLE `gerecht`
 -- AUTO_INCREMENT voor een tabel `gerecht_info`
 --
 ALTER TABLE `gerecht_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT voor een tabel `ingredient`
