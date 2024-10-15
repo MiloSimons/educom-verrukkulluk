@@ -36,10 +36,12 @@ $ger1info = $gerInf->getGerechtInfo(1);
 //var_dump($ger1info);
 $gerecht2 = $ger->getGerecht(2);
 $ingGer2 = $ger->selectIngredient(2);
-
+$gerInf2 = $ger->selectGerechtInfo(2);
+var_dump($gerInf2);
 
 //make methods public in gerecht class for testing
-$testPriceMethod = $ger->calcCalories($ingGer2);
+//$testPriceMethod = $ger->calcCalories($ingGer2);
+$testSteps = $ger->selectSteps($gerInf2);
 
 
 //$art_id = $ig->getArtikel_id($ingr["id"]);
@@ -59,4 +61,5 @@ $testPriceMethod = $ger->calcCalories($ingGer2);
 //var_dump($ger3info);
 //var_dump($gerecht2);
 //var_dump($ingGer2);
-var_dump($testPriceMethod);
+//var_dump($testPriceMethod);
+var_dump($testSteps);
