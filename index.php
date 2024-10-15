@@ -41,7 +41,8 @@ var_dump($gerInf2);
 
 //make methods public in gerecht class for testing
 //$testPriceMethod = $ger->calcCalories($ingGer2);
-$testSteps = $ger->selectSteps($gerInf2);
+//$testSteps = $ger->selectSteps($gerInf2);
+$testRemarks = $ger->selectRemarks($gerInf2);
 
 
 //$art_id = $ig->getArtikel_id($ingr["id"]);
@@ -62,4 +63,5 @@ $testSteps = $ger->selectSteps($gerInf2);
 //var_dump($gerecht2);
 //var_dump($ingGer2);
 //var_dump($testPriceMethod);
-var_dump($testSteps);
+//var_dump($testSteps);
+var_dump($testRemarks);

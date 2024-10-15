@@ -100,8 +100,15 @@ class Gerecht {
     
     private function selectRemarks($gerechtInfo) {
         $remarks = [];
-        foreach
-
+        foreach ($gerechtInfo as $g) {
+            if(count($g) == 2){
+                foreach($g as $o) {
+                    if(count($o)==7 and $o["record_type"]=="O"){
+                        $remarks[] = $g; //voegt ook user toe, is dit nosig of alleen user id?
+                    }                
+                }                    
+            }
+        }
         return $remarks;
     }
 
