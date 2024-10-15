@@ -14,10 +14,10 @@ class Gerecht {
 
     public function __construct($connection) {
         $this->connection = $connection;
-        $this->db = new Database();
-        $this->usr = new User($this->db->getConnection());
-        $this->ing = new Ingredient($this->db->getConnection());
-        $this->gerInfo = new GerechtInfo($this->db->getConnection());
+        $this->db       = new Database();
+        $this->usr      = new User($this->db->getConnection());
+        $this->ing      = new Ingredient($this->db->getConnection());
+        $this->gerInfo  = new GerechtInfo($this->db->getConnection());
         $this->keukType = new KeukenType($this->db->getConnection());
 
     }
@@ -29,22 +29,21 @@ class Gerecht {
         $sql = "select * from gerecht where id = $gerecht_id";
         
         $result = mysqli_query($this->connection, $sql);
-        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) { //Dont need the loop right?
             echo"<pre>";
-            $user = $this->selectUser($row["user_id"]);
-            $ingredient = $this->selectIngredient($row["id"]);
+            $user        = $this->selectUser($row["user_id"]);
+            $ingredient  = $this->selectIngredient($row["id"]);
             $gerechtInfo = $this->selectGerechtInfo($row["id"]);
-            $keuken = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
-            $type = $this->selectKitchenOrType($row["type_id"]);
-            //$keuken = 
+            $keuken      = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
+            $type        = $this->selectKitchenOrType($row["type_id"]);
+
             $gerecht[]=[$row, $user, $ingredient];
             //$price = $this->calcPrice($ingredient);
-            //$keuken = $this->selectKitchen($this->kitchen_id) //if recordtype == K
-            //$type = $this->selectType if recordtype == T
             //$calories = $this->calcCalories
             //$rating = $this->selectRating
-            //$bereidingswijze/stappen = $this->selectSteps
+            //$bereidingswijze/stappen = $this->selectSteps($gerechtInfo)
             //$favorieten = $this->determineFavorite
+            //$avgRating = $this->calcRating($ratings);
         }
 
         return $gerecht;
@@ -81,17 +80,24 @@ class Gerecht {
     }*/
     
     
-    /*
-    private function selectRating() {
-        return $rating;
-    } */
+    
+    public function selectRating($gerechtInfo) {
+        $ratings = [];
+        foreach ($gerechtInfo as $g) {
+            if(count($g) == 7 and $g["record_type"]=="W") {
+                $ratings[] = $g;//[$g["datum"], $g["nummeriekveld"]]; //Is datum hier nodig?
+            }
+        }
+        //calculate rating!
+        return $ratings;
+    }
     
     
     private function selectSteps($gerechtInfo) {
         $steps = [];
         foreach ($gerechtInfo as $g) {
             if(count($g) == 7 and $g["record_type"]=="B") {
-                $steps[] = [$g["nummeriekveld"], $g["tekstveld"]];
+                $steps[] = $g;//[$g["datum"], $g["nummeriekveld"], $g["tekstveld"]]; // is datum nodig hier?
             }
         }
         return $steps;
@@ -104,7 +110,7 @@ class Gerecht {
             if(count($g) == 2){
                 foreach($g as $o) {
                     if(count($o)==7 and $o["record_type"]=="O"){
-                        $remarks[] = $g; //voegt ook user toe, is dit nosig of alleen user id?
+                        $remarks[] = $g; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
                     }                
                 }                    
             }
@@ -163,7 +169,18 @@ class Gerecht {
             $ingrPrice = ceil($needed/$package)*$packagePrice;
             $price += $ingrPrice;
         }        
-        return round($price, 2);
+        return round($price, 2); //round not needed?
+    }
+
+    public function calcAVGRating($ratings) {
+        $ratingTotal = 0;
+        $count = 0;
+        foreach ($ratings as $rating) {
+            $ratingTotal += floatval($rating["nummeriekveld"]);
+            $count++;
+        }
+        $ratingAVG = $ratingTotal/$count;
+        return round($ratingAVG, 0); //round not needed?
     }
 
 }
