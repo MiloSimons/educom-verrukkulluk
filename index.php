@@ -1,41 +1,41 @@
 <?php
 
 require_once("lib/Database.php");
-require_once("lib/Artikel.php");
+require_once("lib/Article.php");
 require_once("lib/User.php");
-require_once("lib/KeukenType.php");
+require_once("lib/KitchenType.php");
 require_once("lib/Ingredient.php");
-require_once("lib/GerechtInfo.php");
-require_once("lib/Gerecht.php");
+require_once("lib/RecipeInfo.php");
+require_once("lib/Recipe.php");
 
 /// INIT
-$db = new Database();
-$art = new Artikel($db->getConnection());
+$db  = new Database();
+$art = new Article($db->getConnection());
 $usr = new User($db->getConnection());
-$kt = new KeukenType($db->getConnection());
-$ig = new Ingredient($db->getConnection());
-$gerInf = new GerechtInfo($db->getConnection());
-$ger = new Gerecht($db->getConnection());
+$kt  = new KitchenType($db->getConnection());
+$ig  = new Ingredient($db->getConnection());
+$recInf = new RecipeInfo($db->getConnection());
+$rec = new Recipe($db->getConnection());
 
 
 
 /// VERWERK 
-$artikelEight = $art->getArtikel(8);
+$articleEight = $art->getArticle(8);
 $pieter = $usr->getUser(1);
 //$keukenType1 = $kt->getKeukenType(1);
 
 //$ingr = $ig->getIngredients(3); //3 is gerecht_id
 
-$ger3info = $gerInf->getGerechtInfo(3);
+$rec3info = $recInf->getRecipeInfo(3);
 
-$ger1info = $gerInf->getGerechtInfo(1);
+$rec1info = $recInf->getRecipeInfo(1);
 //var_dump($ger1info);
-$gerInf->addFavorite(1, 1);
+$recInf->addFavorite(1, 1);
 //$gerInf->deleteFavorite(1, 1);
-$ger1info = $gerInf->getGerechtInfo(1);
+$rec1info = $recInf->getRecipeInfo(1);
 //var_dump($ger1info);
-$gerecht2 = $ger->getGerecht(2);
-$gerecht1en2 = $ger->getGerecht([1,2]);
+$recipe2 = $rec->getRecipe(2);
+$recipes1and2 = $rec->getRecipe([1,2]);
 //$ingGer2 = $ger->selectIngredient(2);
 //$gerInf2 = $ger->selectGerechtInfo(2);
 //var_dump($gerInf2);
@@ -73,5 +73,5 @@ $gerecht1en2 = $ger->getGerecht([1,2]);
 //var_dump($ratingAVG);
 //var_dump($testFavo);
 
-var_dump($gerecht2);
-var_dump($gerecht1en2);
+var_dump($recipe2);
+var_dump($recipes1and2);

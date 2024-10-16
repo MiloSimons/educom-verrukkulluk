@@ -1,61 +1,60 @@
 <?php
 require_once("lib/User.php");
 require_once("lib/Ingredient.php");
-require_once("lib/KeukenType.php");
-require_once("lib/GerechtInfo.php");
+require_once("lib/KitchenType.php");
+require_once("lib/RecipeInfo.php");
 
-class Gerecht {
+class Recipe {
 
     private $connection;
     private $usr;
     private $ing;
-    private $gerInfo;
-    private $keukType;
+    private $recInfo;
+    private $kitcType;
 
     public function __construct($connection) {
         $this->connection = $connection;
-        $this->db       = new Database();
-        $this->usr      = new User($this->db->getConnection());
-        $this->ing      = new Ingredient($this->db->getConnection());
-        $this->gerInfo  = new GerechtInfo($this->db->getConnection());
-        $this->keukType = new KeukenType($this->db->getConnection());
+        $this->usr      = new User($this->connection);
+        $this->ing      = new Ingredient($this->connection);
+        $this->recInfo  = new RecipeInfo($this->connection);
+        $this->kitcType = new KitchenType($this->connection);
 
     }
   
-    public function getGerecht($gerecht_ids) {
-        foreach((array)$gerecht_ids as $gerecht_id) {
-            $sql = "select * from gerecht where id = $gerecht_id";
+    public function getRecipe($recipe_ids) {
+        foreach((array)$recipe_ids as $recipe_id) {
+            $sql = "select * from gerecht where id = $recipe_id"; //while row loop
             
             $result = mysqli_query($this->connection, $sql);
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
             $user        = $this->selectUser($row["user_id"]);
             $ingredients = $this->selectIngredient($row["id"]);
-            $gerechtInfo = $this->selectGerechtInfo($row["id"]);
-            $keuken      = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
+            $recipeInfo  = $this->selectRecipeInfo($row["id"]);
+            $kitchen     = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
             $type        = $this->selectKitchenOrType($row["type_id"]);
-            $favorieten  = $this->determineFavorite($gerechtInfo);
-            $ratings     = $this->selectRating($gerechtInfo);
-            $remarks     = $this->selectRemarks($gerechtInfo);
-            $steps       = $this->selectSteps($gerechtInfo);
+            $favorites   = $this->determineFavorite($recipeInfo);
+            $ratings     = $this->selectRating($recipeInfo);
+            $remarks     = $this->selectRemarks($recipeInfo);
+            $steps       = $this->selectSteps($recipeInfo);
             $price       = $this->calcPrice($ingredients);
             $calories    = $this->calcCalories($ingredients);
             $stars       = $this->calcAVGRating($ratings);
 
-            $gerecht[]=["Gerecht"=>$row, //$gerecht[] voor meerder gerechten ophalen?
-                        "User"=>$user,
-                        "Ingredients"=>$ingredients,
-                        "Kitchen"=>$keuken,
-                        "Type"=>$type,
-                        "Favorites"=>$favorieten,
-                        "Ratings"=>$ratings,
-                        "Remarks"=>$remarks,
-                        "Steps"=>$steps,
-                        "Price"=>$price,
-                        "Calories"=>$calories,
-                        "Stars"=>$stars];        
+            $recipe[]= ["recipe"=>$row, //kleine letters
+                        "user"=>$user,
+                        "ingredients"=>$ingredients,
+                        "kitchen"=>$kitchen,
+                        "type"=>$type,
+                        "favorites"=>$favorites,
+                        "ratings"=>$ratings,
+                        "remarks"=>$remarks,
+                        "steps"=>$steps,
+                        "price"=>$price,
+                        "calories"=>$calories,
+                        "stars"=>$stars];        
         }
-        return $gerecht;
+        return $recipe;
 
     }
 
@@ -65,18 +64,18 @@ class Gerecht {
         return $user;
     }
 
-    private function selectIngredient($gerecht_id) {
-        $ingredient = $this->ing->getIngredients($gerecht_id);
+    private function selectIngredient($recipe_id) {
+        $ingredient = $this->ing->getIngredients($recipe_id);
         return $ingredient;
     }
     
-    private function selectGerechtInfo($gerecht_id) {
-        $gerechtInfo = $this->gerInfo->getGerechtInfo($gerecht_id);
-        return $gerechtInfo;
+    private function selectRecipeInfo($recipe_id) {
+        $recipeInfo = $this->recInfo->getRecipeInfo($recipe_id);
+        return $recipeInfo;
     }
 
-    private function selectKitchenOrType($keukenOrType_id) {
-        $kitchenType = $this->keukType->getKeukenType($keukenOrType_id);
+    private function selectKitchenOrType($kitchenOrType_id) {
+        $kitchenType = $this->kitcType->getKitchenType($kitchenOrType_id);
         $kitchenOrType = $kitchenType["omschrijving"];
         return $kitchenOrType;
     }
@@ -90,36 +89,35 @@ class Gerecht {
     
     
     
-    private function selectRating($gerechtInfo) {
+    private function selectRating($recipeInfo) {
         $ratings = [];
-        foreach ($gerechtInfo as $g) {
-            if(count($g) == 7 and $g["record_type"]=="W") {
-                $ratings[] = $g;//[$g["datum"], $g["nummeriekveld"]]; //Is datum hier nodig?
+        foreach ($recipeInfo as $r) {
+            if(count($r) == 7 and $r["record_type"]=="W") {
+                $ratings[] = $r;//[$g["datum"], $g["nummeriekveld"]]; //Is datum hier nodig?
             }
         }
-        //calculate rating!
         return $ratings;
     }
     
     //SORT BASED ON NUMMERIEKVELD? --> e.g., step 1, step 2, etc.
-    private function selectSteps($gerechtInfo) {
+    private function selectSteps($recipeInfo) {
         $steps = [];
-        foreach ($gerechtInfo as $g) {
-            if(count($g) == 7 and $g["record_type"]=="B") {
-                $steps[] = $g;//[$g["datum"], $g["nummeriekveld"], $g["tekstveld"]]; // is datum nodig hier?
+        foreach ($recipeInfo as $r) {
+            if(count($r) == 7 and $r["record_type"]=="B") {
+                $steps[] = $r;//[$g["datum"], $g["nummeriekveld"], $g["tekstveld"]]; // is datum nodig hier?
             }
         }
         return $steps;
     }
 
     
-    private function selectRemarks($gerechtInfo) {
+    private function selectRemarks($recipeInfo) {
         $remarks = [];
-        foreach ($gerechtInfo as $g) {
-            if(count($g) == 2){
-                foreach($g as $o) {
+        foreach ($recipeInfo as $r) {
+            if(count($r) == 2){
+                foreach($r as $o) {
                     if(count($o)==7 and $o["record_type"]=="O"){
-                        $remarks[] = $g; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
+                        $remarks[] = $r; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
                     }                
                 }                    
             }
@@ -128,13 +126,13 @@ class Gerecht {
     }    
     
     //WHAT DOES THIS FUNCTION NEED TO DO EXACTLY?
-    private function determineFavorite($gerechtInfo) {
+    private function determineFavorite($recipeInfo) {
         $favorites = [];
-        foreach ($gerechtInfo as $g) {
-            if(count($g) == 2){
-                foreach($g as $f) {
+        foreach ($recipeInfo as $r) {
+            if(count($r) == 2){
+                foreach($r as $f) {
                     if(count($f)==7 and $f["record_type"]=="F"){
-                        $favorites[] = $g; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
+                        $favorites[] = $r; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
                     }                
                 }                    
             }
@@ -147,11 +145,11 @@ class Gerecht {
 
         foreach ($ingredients as $ingrAndArti) {
             foreach ($ingrAndArti as $i) {
-                // Get aantal from ingredient:
+                // Get amount needed from ingredient:
                 if (count($i) == 4) {
                     $needed = floatval($i["aantal"]);
                 }
-                // Get verpakking and calorieen from artikel:
+                // Get package amount and calories from article:
                 if (count($i) == 7) {
                     $package = floatval($i["verpakking"]);
                     $packageCalories = floatval($i["calorieen"]);
@@ -162,7 +160,7 @@ class Gerecht {
             $ingrCalories = ($packageCalories/$package)*$needed;
             $calories += $ingrCalories;
         }        
-        return round($calories, 2);
+        return $calories;
     }  
 
     private function calcPrice($ingredients) {
@@ -170,11 +168,11 @@ class Gerecht {
 
         foreach ($ingredients as $ingrAndArti) {
             foreach ($ingrAndArti as $i) {
-                // Get aantal from ingredient:
+                // Get amount needed from ingredient:
                 if (count($i) == 4) {
                     $needed = floatval($i["aantal"]);
                 }
-                // Get verpakking and prijs from artikel:
+                // Get package amount and price from article:
                 if (count($i) == 7) {
                     $package = floatval($i["verpakking"]);
                     $packagePrice = floatval($i["prijs"]);
@@ -185,7 +183,7 @@ class Gerecht {
             $ingrPrice = ceil($needed/$package)*$packagePrice;
             $price += $ingrPrice;
         }        
-        return round($price, 2); //round not needed?
+        return $price;
     }
 
     private function calcAVGRating($ratings) {
@@ -196,7 +194,7 @@ class Gerecht {
             $count++;
         }
         $ratingAVG = $ratingTotal/$count;
-        return round($ratingAVG, 0); //round not needed?
+        return $ratingAVG;
     }
 
 }
