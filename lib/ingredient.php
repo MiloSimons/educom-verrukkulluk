@@ -20,7 +20,13 @@ class Ingredient {
         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             echo"<pre>";
             $article = $this->selectArticle($row["artikel_id"]);
-            $ingredients[]=["Ingredient"=>$row, "Article"=>$article];
+            $row += ["naam"=>$article["naam"],
+                     "omschrijving"=>$article["omschrijving"],
+                     "prijs"=>$article["prijs"],
+                     "eenheid"=>$article["eenheid"],
+                     "verpakking"=>$article["verpakking"],
+                     "calorieen"=>$article["calorieen"]];
+            $ingredients[]=["ingredient with article"=>$row];
         }
 
         return $ingredients;

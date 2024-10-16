@@ -41,7 +41,7 @@ class Recipe {
             $calories    = $this->calcCalories($ingredients);
             $stars       = $this->calcAVGRating($ratings);
 
-            $recipe[]= ["recipe"=>$row, //kleine letters
+            $recipe[]= ["recipe"=>$row,
                         "user"=>$user,
                         "ingredients"=>$ingredients,
                         "kitchen"=>$kitchen,
@@ -89,74 +89,65 @@ class Recipe {
     
     
     
-    private function selectRating($recipeInfo) {
+    private function selectRating($allRecipeInfo) {
         $ratings = [];
-        foreach ($recipeInfo as $r) {
-            if(count($r) == 7 and $r["record_type"]=="W") {
-                $ratings[] = $r;//[$g["datum"], $g["nummeriekveld"]]; //Is datum hier nodig?
-            }
+        foreach ($allRecipeInfo as $recipeInfo) {
+            foreach($recipeInfo as $r){
+                if($r["record_type"]=="W") {
+                    $ratings[] = $r;
+                }
+            }    
         }
         return $ratings;
     }
     
     //SORT BASED ON NUMMERIEKVELD? --> e.g., step 1, step 2, etc.
-    private function selectSteps($recipeInfo) {
+    private function selectSteps($allRecipeInfo) {
         $steps = [];
-        foreach ($recipeInfo as $r) {
-            if(count($r) == 7 and $r["record_type"]=="B") {
-                $steps[] = $r;//[$g["datum"], $g["nummeriekveld"], $g["tekstveld"]]; // is datum nodig hier?
-            }
+        foreach ($allRecipeInfo as $recipeInfo) {
+            foreach($recipeInfo as $r) {
+                if($r["record_type"]=="B") {
+                    $steps[] = $r;
+                }
+            }    
         }
         return $steps;
     }
 
     
-    private function selectRemarks($recipeInfo) {
+    private function selectRemarks($allRecipeInfo) {
         $remarks = [];
-        foreach ($recipeInfo as $r) {
-            if(count($r) == 2){
-                foreach($r as $o) {
-                    if(count($o)==7 and $o["record_type"]=="O"){
-                        $remarks[] = $r; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
-                    }                
-                }                    
-            }
+        foreach ($allRecipeInfo as $recipeInfo) {
+            foreach($recipeInfo as $o) {
+                if($o["record_type"]=="O"){
+                    $remarks[] = $recipeInfo;
+                }                
+            }                    
         }
         return $remarks;
     }    
     
     //WHAT DOES THIS FUNCTION NEED TO DO EXACTLY?
-    private function determineFavorite($recipeInfo) {
+    private function determineFavorite($allRecipeInfo) {
         $favorites = [];
-        foreach ($recipeInfo as $r) {
-            if(count($r) == 2){
-                foreach($r as $f) {
-                    if(count($f)==7 and $f["record_type"]=="F"){
-                        $favorites[] = $r; //voegt ook user toe, is dit nodig of alleen user id? anders $g[0]!
-                    }                
-                }                    
-            }
+        foreach ($allRecipeInfo as $recipeInfo) {
+            foreach($recipeInfo as $f) {
+                if($f["record_type"]=="F"){
+                    $favorites[] = $recipeInfo;
+                }                
+            }                  
         }
         return $favorites;
     }
 
     private function calcCalories($ingredients) {
         $calories = 0;
-
         foreach ($ingredients as $ingrAndArti) {
             foreach ($ingrAndArti as $i) {
-                // Get amount needed from ingredient:
-                if (count($i) == 4) {
-                    $needed = floatval($i["aantal"]);
-                }
-                // Get package amount and calories from article:
-                if (count($i) == 7) {
-                    $package = floatval($i["verpakking"]);
-                    $packageCalories = floatval($i["calorieen"]);
-                }            
+                $needed = floatval($i["aantal"]);
+                $package = floatval($i["verpakking"]);
+                $packageCalories = floatval($i["calorieen"]);                            
             }
-
-            //calculate price per ingredient, always round up
             $ingrCalories = ($packageCalories/$package)*$needed;
             $calories += $ingrCalories;
         }        
@@ -165,24 +156,16 @@ class Recipe {
 
     private function calcPrice($ingredients) {
         $price = 0;
-
         foreach ($ingredients as $ingrAndArti) {
             foreach ($ingrAndArti as $i) {
-                // Get amount needed from ingredient:
-                if (count($i) == 4) {
-                    $needed = floatval($i["aantal"]);
-                }
-                // Get package amount and price from article:
-                if (count($i) == 7) {
-                    $package = floatval($i["verpakking"]);
-                    $packagePrice = floatval($i["prijs"]);
-                }            
+                $needed = floatval($i["aantal"]);
+                $package = floatval($i["verpakking"]);
+                $packagePrice = floatval($i["prijs"]);                       
             }
-
             //calculate price per ingredient, always round up
             $ingrPrice = ceil($needed/$package)*$packagePrice;
             $price += $ingrPrice;
-        }        
+        }      
         return $price;
     }
 
