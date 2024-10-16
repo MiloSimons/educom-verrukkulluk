@@ -35,7 +35,8 @@ $recInf->addFavorite(1, 1);
 $rec1info = $recInf->getRecipeInfo(1);
 //var_dump($ger1info);
 $recipe2 = $rec->getRecipe(2);
-$recipes1and2 = $rec->getRecipe([1,2]);
+$allRecipes = $rec->getRecipe();
+//$recipes1and2 = $rec->getRecipe([1,2]);
 //$ingGer2 = $ger->selectIngredient(2);
 //$gerInf2 = $ger->selectGerechtInfo(2);
 //var_dump($gerInf2);
@@ -74,4 +75,4 @@ $recipes1and2 = $rec->getRecipe([1,2]);
 //var_dump($testFavo);
 
 var_dump($recipe2);
-var_dump($recipes1and2);
+var_dump($allRecipes);

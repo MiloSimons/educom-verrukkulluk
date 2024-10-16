@@ -21,13 +21,18 @@ class Recipe {
 
     }
   
-    public function getRecipe($recipe_ids) {
-        foreach((array)$recipe_ids as $recipe_id) {
-            $sql = "select * from gerecht where id = $recipe_id"; //while row loop
-            
-            $result = mysqli_query($this->connection, $sql);
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    public function getRecipe($recipe_id = NULL) {
 
+        $sql = "select * from gerecht";
+
+        if($recipe_id != NULL) {
+            $sql.= " where id = $recipe_id";
+        }
+
+        $result = mysqli_query($this->connection, $sql);
+
+        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
             $user        = $this->selectUser($row["user_id"]);
             $ingredients = $this->selectIngredient($row["id"]);
             $recipeInfo  = $this->selectRecipeInfo($row["id"]);
