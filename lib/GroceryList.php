@@ -10,8 +10,8 @@ class GroceryList {
 
     public function __construct($connection) {
         $this->connection = $connection;
-        $this->usr          = new User($this->connection);
-        $this->ing          = new Ingredient($this->connection);
+        $this->usr = new User($this->connection);
+        $this->ing = new Ingredient($this->connection);
     }
 
     public function getGroceryList($user_id) {
@@ -59,10 +59,6 @@ class GroceryList {
         }
         
     }
-
-    /*public function deleteFromGroceryList() {
-        //????????????????????????????
-    }*/
     
     public function calcTotalPriceGroceryList($user_id) {
         $totalPrice = 0;

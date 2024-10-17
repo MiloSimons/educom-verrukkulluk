@@ -103,7 +103,7 @@ class Recipe {
         return $ratings;
     }
     
-    //SORT BASED ON NUMMERIEKVELD? --> e.g., step 1, step 2, etc.
+    //SORT BASED ON NUMMERIEKVELD? --> e.g., step 1, step 2, etc.???
     private function selectSteps($allRecipeInfo) {
         $steps = [];
         foreach ($allRecipeInfo as $recipeInfo) {
@@ -128,7 +128,6 @@ class Recipe {
         return $remarks;
     }    
     
-    //WHAT DOES THIS FUNCTION NEED TO DO EXACTLY?
     private function determineFavorite($allRecipeInfo) {
         $favorites = [];
         foreach ($allRecipeInfo as $recipeInfo) {
