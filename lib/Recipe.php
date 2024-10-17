@@ -63,7 +63,6 @@ class Recipe {
 
     }
 
-    //make everything private after testing!
     private function selectUser($user_id) {
         $user = $this->usr->getUser($user_id);
         return $user;
@@ -90,11 +89,9 @@ class Recipe {
         $kitchenType = $this->keukType->getKeukenType($type_id);
         $type = $kitchenType["omschrijving"];
         return $type;
-    }*/
+    }*/  
     
-    
-    
-    private function selectRating($allRecipeInfo) {
+   private function selectRating($allRecipeInfo) {
         $ratings = [];
         foreach ($allRecipeInfo as $recipeInfo) {
             foreach($recipeInfo as $r){
@@ -118,7 +115,6 @@ class Recipe {
         }
         return $steps;
     }
-
     
     private function selectRemarks($allRecipeInfo) {
         $remarks = [];
@@ -167,7 +163,8 @@ class Recipe {
                 $package = floatval($i["verpakking"]);
                 $packagePrice = floatval($i["prijs"]);                       
             }
-            //calculate price per ingredient, always round up
+            //calculate price per ingredient, always round articles needed up
+            //e.g., if you need 1.5 articles of some ingredient you need to buy 2
             $ingrPrice = ceil($needed/$package)*$packagePrice;
             $price += $ingrPrice;
         }      

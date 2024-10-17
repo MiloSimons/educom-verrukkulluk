@@ -1,5 +1,4 @@
 <?php
-//require_once("lib/database.php");
 require_once("lib/Article.php");
 
 class Ingredient {
@@ -13,7 +12,6 @@ class Ingredient {
     }     
 
     public function getIngredients($recipe_id) {
-        // make one array out of it, appending every ingredient with all artikel info exc/ id.
         $sql = "select * from ingredient where gerecht_id = $recipe_id";
         
         $result = mysqli_query($this->connection, $sql);

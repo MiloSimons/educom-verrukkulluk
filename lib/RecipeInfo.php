@@ -16,7 +16,6 @@ class RecipeInfo {
         $sql = "select * from gerecht_info where gerecht_id = $recipe_id";
         
         $result = mysqli_query($this->connection, $sql);
-        //$recipe_info = [];
 
         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             echo"<pre>";

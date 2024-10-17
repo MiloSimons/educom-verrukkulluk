@@ -1,6 +1,5 @@
 <?php 
 
-// Aanpassen naar je eigen omgeving
 define("USER", "root");
 define("PASSWORD", "");
 define("DATABASE", 'verrukkulluk_db');

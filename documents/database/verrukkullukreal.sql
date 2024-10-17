@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 17 okt 2024 om 12:06
+-- Gegenereerd op: 17 okt 2024 om 09:22
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -81,7 +81,7 @@ CREATE TABLE `boodschappenlijst` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `artikel_id` int(11) NOT NULL,
-  `aantal` float NOT NULL,
+  `aantal` int(11) NOT NULL,
   `prijs` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -305,8 +305,8 @@ ALTER TABLE `artikel`
 --
 ALTER TABLE `boodschappenlijst`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `boodschappenlijst_ibfk_1` (`artikel_id`),
-  ADD KEY `boodschappenlijst_ibfk_2` (`user_id`);
+  ADD KEY `artikel_id` (`artikel_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexen voor tabel `gerecht`
@@ -358,7 +358,7 @@ ALTER TABLE `artikel`
 -- AUTO_INCREMENT voor een tabel `boodschappenlijst`
 --
 ALTER TABLE `boodschappenlijst`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=943;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT voor een tabel `gerecht`
@@ -398,8 +398,8 @@ ALTER TABLE `user`
 -- Beperkingen voor tabel `boodschappenlijst`
 --
 ALTER TABLE `boodschappenlijst`
-  ADD CONSTRAINT `boodschappenlijst_ibfk_1` FOREIGN KEY (`artikel_id`) REFERENCES `artikel` (`id`),
-  ADD CONSTRAINT `boodschappenlijst_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `boodschappenlijst_ibfk_1` FOREIGN KEY (`artikel_id`) REFERENCES `artikel` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `boodschappenlijst_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Beperkingen voor tabel `gerecht`

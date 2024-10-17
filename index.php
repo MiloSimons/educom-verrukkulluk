@@ -7,6 +7,7 @@ require_once("lib/KitchenType.php");
 require_once("lib/Ingredient.php");
 require_once("lib/RecipeInfo.php");
 require_once("lib/Recipe.php");
+require_once("lib/GroceryList.php");
 
 /// INIT
 $db  = new Database();
@@ -16,6 +17,7 @@ $kt  = new KitchenType($db->getConnection());
 $ig  = new Ingredient($db->getConnection());
 $recInf = new RecipeInfo($db->getConnection());
 $rec = new Recipe($db->getConnection());
+$grList = new GroceryList($db->getConnection());
 
 
 
@@ -40,7 +42,24 @@ $allRecipes = $rec->getRecipe();
 //$ingGer2 = $ger->selectIngredient(2);
 //$gerInf2 = $ger->selectGerechtInfo(2);
 //var_dump($gerInf2);
+/*
+$grListUser4_1 = $grList->getGroceryList(4);
+$grListUser4_2 = $grList->getGroceryList(4);
+//$onList = $grList->articleOnList(4,2);
+$grList->addToGroceryList(1,4);
+$grListUser4_3 = $grList->getGroceryList(4);
+*/
 
+//$grListUser1 = $grList->getGroceryList(1);
+//$grList->articleOnList(1, 1);
+//$grList->articleOnList(1, 2);
+//$grList->articleOnList(1, 3);
+//$grList->articleOnList(2,1);
+//$grList->addToGroceryList(1,1);
+//$grList->addToGroceryList(2,2);
+$grList->addToGroceryList(1,1);
+$grListU2 = $grList->getGroceryList(1);
+var_dump($grListU2);
 //make methods public in gerecht class for testing
 //$testPriceMethod = $ger->calcCalories($ingGer2);
 //$testSteps = $ger->selectSteps($gerInf2);
@@ -74,5 +93,13 @@ $allRecipes = $rec->getRecipe();
 //var_dump($ratingAVG);
 //var_dump($testFavo);
 
-var_dump($recipe2);
-var_dump($allRecipes);
+//var_dump($recipe2);
+//var_dump($allRecipes);
+//var_dump($grList);
+
+//var_dump($grListUser4_1);
+//var_dump($grListUser4_2);
+//var_dump($onList);
+//var_dump($grListUser4_3);
+
+//var_dump($grListUser1);
