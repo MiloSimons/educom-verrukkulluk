@@ -16,8 +16,5 @@ class Article {
         $article = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
         return $article;
-
     }
-
-
 }

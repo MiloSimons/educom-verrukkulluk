@@ -17,5 +17,4 @@ class KitchenType {
 
         return $kitchenType;
     }
-
 }

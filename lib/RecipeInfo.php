@@ -31,7 +31,6 @@ class RecipeInfo {
             $recipe_info[] = ["recipeInfo"=>$row];
             }
         }
-
         return $recipe_info;
     }
 
@@ -61,5 +60,4 @@ class RecipeInfo {
         
         $result = mysqli_query($this->connection, $sql);
     }
-
 }

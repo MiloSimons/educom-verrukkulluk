@@ -18,7 +18,6 @@ class Recipe {
         $this->ing      = new Ingredient($this->connection);
         $this->recInfo  = new RecipeInfo($this->connection);
         $this->kitcType = new KitchenType($this->connection);
-
     }
   
     public function getRecipe($recipe_id = NULL) {
@@ -60,7 +59,6 @@ class Recipe {
                         "stars"=>$stars];        
         }
         return $recipe;
-
     }
 
     private function selectUser($user_id) {
@@ -180,5 +178,4 @@ class Recipe {
         $ratingAVG = $ratingTotal/$count;
         return $ratingAVG;
     }
-
 }

@@ -16,8 +16,5 @@ class User {
         $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
         return $user;
-
     }
-
-
 }

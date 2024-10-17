@@ -51,11 +51,9 @@ class GroceryList {
                             SET aantal = $new_amount, prijs = $new_price
                             WHERE user_id = $user_id and artikel_id = $article_id";
                     $result = mysqli_query($this->connection, $sql);
-                }
-                
+                }                
             }    
-        }
-        
+        }        
     }
     
     public function calcTotalPriceGroceryList($user_id) {

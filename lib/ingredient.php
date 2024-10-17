@@ -26,9 +26,7 @@ class Ingredient {
                      "calorieen"=>$article["calorieen"]];
             $ingredients[]=["ingredient with article"=>$row];
         }
-
         return $ingredients;
-
     }
 
     private function selectArticle($article_id) {
