@@ -37,7 +37,8 @@ class GroceryList {
                     $amount = $this->calcAmountNeeded($article);
                     $price = $this->calcPrice($article, $amount);                    
 
-                    $sql = "INSERT INTO boodschappenlijst (id, user_id, artikel_id, aantal, prijs) values (NULL, $user_id, $article_id, $amount, $price)";
+                    $sql = "INSERT INTO boodschappenlijst (id, user_id, artikel_id, aantal, prijs)
+                            values (NULL, $user_id, $article_id, $amount, $price)";
                     $result = mysqli_query($this->connection, $sql);
                 } else { 
                     // UPDATE ARTICLE
@@ -46,13 +47,10 @@ class GroceryList {
                     $new_amount = $old_amount + $this->calcAmountNeeded($article);
                     $new_price = $this->calcPrice($article, $new_amount);
                     
-                    //remove old record
-                    $sql = "DELETE FROM boodschappenlijst WHERE user_id = $user_id and artikel_id = $article_id";
+                    $sql = "UPDATE boodschappenlijst
+                            SET aantal = $new_amount, prijs = $new_price
+                            WHERE user_id = $user_id and artikel_id = $article_id";
                     $result = mysqli_query($this->connection, $sql);
-
-                    //insert updated record
-                    $sql = "INSERT INTO boodschappenlijst (id, user_id, artikel_id, aantal, prijs) values (NULL, $user_id, $article_id, $new_amount, $new_price)";
-                    $result = mysqli_query($this->connection, $sql);                    
                 }
                 
             }    

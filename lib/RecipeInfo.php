@@ -49,7 +49,8 @@ class RecipeInfo {
         
         if($row == NULL) {
         
-            $sql2 = "INSERT INTO gerecht_info (id, record_type, gerecht_id, user_id, datum, nummeriekveld, tekstveld) values (NULL, 'F', $recipe_id, $user_id, '', NULL, NULL)";
+            $sql2 = "INSERT INTO gerecht_info (id, record_type, gerecht_id, user_id, datum, nummeriekveld, tekstveld)
+                     values (NULL, 'F', $recipe_id, $user_id, '', NULL, NULL)";
 
             $result2 = mysqli_query($this->connection, $sql2);  
         }      
