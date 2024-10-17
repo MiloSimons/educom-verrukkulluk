@@ -64,6 +64,17 @@ class GroceryList {
         //????????????????????????????
     }*/
     
+    public function calcTotalPriceGroceryList($user_id) {
+        $totalPrice = 0;
+        $groceryList = $this->getGroceryList($user_id);
+        if ($groceryList != NULL){    
+            foreach($groceryList as $article) {
+                $totalPrice += $article["prijs"];
+            }
+        }    
+        return $totalPrice;
+    }
+    
     //calculate amount of articles needed (unrounded)
     private function calcAmountNeeded($ingredient) {
         $amount = floatval($ingredient["aantal"]);
@@ -93,10 +104,4 @@ class GroceryList {
         //returns false or article details       
         return $articleOnList;
     }
-
-    /*public function calcTotalPriceGroceryList() {
-    
-      return $totalPrice;
-    }*/
-
 }
