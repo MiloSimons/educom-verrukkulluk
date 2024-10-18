@@ -57,7 +57,7 @@ $grListUser4_3 = $grList->getGroceryList(4);
 //$grList->articleOnList(2,1);
 //$grList->addToGroceryList(1,1);
 //$grList->addToGroceryList(2,2);
-$grList->addToGroceryList(1,1);
+//$grList->addToGroceryList(1,1);
 $grListU2 = $grList->getGroceryList(1);
 var_dump($grListU2);
 $totalPriceU1 = $grList->calcTotalPriceGroceryList(1);
