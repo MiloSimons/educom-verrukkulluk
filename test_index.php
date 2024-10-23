@@ -35,7 +35,7 @@ $recipes = new Recipe($db->getConnection());
 $groceryLists = new GroceryList($db->getConnection());
 
 $allRecipeData = $recipes->getRecipe();
-//var_dump($allRecipeData);
+var_dump($allRecipeData);
 /// VERWERK 
 
 /// RETURN
@@ -45,7 +45,7 @@ $allRecipeData = $recipes->getRecipe();
 URL:
 http://localhost/index.php?gerecht_id=4&action=detail
 */
-
+/*
 $recipe_id = isset($_GET["recipe_id"]) ? $_GET["recipe_id"] : "";
 $action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
 
@@ -78,3 +78,4 @@ $template = $twig->load($template);
 
 /// En tonen die handel!
 echo $template->render(["title" => $title, "data" => $data]);
+*/

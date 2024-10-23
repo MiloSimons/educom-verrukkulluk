@@ -2,47 +2,100 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-<img src="assets/img/logo-v2.png"/>
+
+<header class="navigation">    
+        <img src="assets/img/logo-v2.png" class="menu-logo"/>
+        <div class="menu-search">
+            <img src="assets/img/search.png" class="search-icon"/> <span class="search-text">Zoeken</span>
+        </div>
+        <div class="menu-button">
+            <div class="menu-button-trigger"> <img src="assets/img/menu-icon.svg" class="menu-icon"/>
+                <div class="dropdown">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="assets/img/logo-v2.png" class="dropdown-menu-logo"/>
+                        </div>
+                        <div class="col-md-3 dropdown-text">    
+                            <span>Mijn Favorieten</span>
+                        </div>
+                        <div class="col-md-4 dropdown-text">    
+                            <span>Mijn Boodschappenlijst</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</header>
+
 {% endblock %}
 
 
 {# nu de block content op in de main pagina vullen #}
 {% block content %}
-    {# Dit is commentaar #}
-
-    {# Print #}
-    <h1>Heading #1</h1>
-    <h2>Heading #2</h2>
-    <h3>Heading #3 t/m 5</h3>
-
-    <h4>Dit is de template {{  title }}</h4>
 
 {# Loop #}
-    <ul>
-    {% for record in data %}
-        <li>
-            <img src="{{ record.foto }}" style="width: 100px; heigfht: 100px;">
-
-            {{ record.title }}
-            {# sub-loop #}
-            <ul>
-                {% for ingr in record.ingredienten %}
-                    <li>
-                        <span {% if ingr.id < 2 %}style='color: #F00'{% endif %}>{{  ingr.naam }}</span>
-
-                        {# if #}
-                        {%  if ingr.id == 3 %}
-                            <strong>Dit is ID 3!</strong>
-                        {%  endif  %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-    <ul>
-     {# Dump #}
-       <pre>
-        {{ dump(data) }}
-       </pre>
-
+    
+    <section>
+        <div class="row">
+            {% for recipe in data %} {# sorteer op basis van datum toegevoegd #}
+                <div class="col-md-6">                    
+                    <div class="content">
+                        <img src="{{ recipe.recipe.afbeelding }}" class="recipe-image">
+                        <div class="recipe-content">
+                            <div class="row">    
+                                {#top row#}
+                                <div class="col-md-8">
+                                    <h2 class="recipe-title">
+                                        {{ recipe.recipe.titel }}                                        
+                                    </h2>
+                                </div>    
+                                <div class="col-md-4 stars">
+                                {#<span style="color: black; font-size: 16px">{{ recipe.stars|round(0) }}</span>#}
+                                    <img src="assets/img/full-star.svg" class="star-icons"/>
+                                    <img src="assets/img/full-star.svg" class="star-icons"/>
+                                    <img src="assets/img/full-star.svg" class="star-icons"/>
+                                    <img src="assets/img/full-star.svg" class="star-icons"/>
+                                    <img src="assets/img/empty-star.svg" class="star-icons"/>
+                                </div>
+                            </div>
+                            <div class="row">    
+                                {#middle row#}
+                                <div class="col-md-12">
+                                    <span class="short-description">{{ recipe.recipe.korte_omschrijving }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {#bottom row#}
+                                <div class="col-md-5">
+                                    <button type="button" class="smullen-button" className="">{{ "Smullen!" }}</button>
+                                </div>
+                                <div class="col-md-7 recipe-info">
+                                    <img src="assets/img/people-icon.png" class="recipe-icons"/> {{4}}
+                                    <span class="euro-sign"> &euro; </span> <span>{{ recipe.price|round(2) }}</span>
+                                    <img src="assets/img/calorie-icon.png" class="recipe-icons"/> <span>{{ recipe.calories|round(0) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br>  
+                </div>                             
+                
+            {% endfor %}
+            <div class="page-selection">
+                <span class="page-index">1</span>
+                <span class="page-index">2</span>
+                <span class="page-index">3</span>
+                <span class="page-index">4</span>
+                <span class="page-index">5</span>
+                <span class="page-index">6</span>
+                <span class="page-index">7</span>
+                <span class="page-index">8</span>
+            </div>
+        </div>
+         
+    </section>
+    
+    {#row for page selection#}
+     
 {% endblock %}
