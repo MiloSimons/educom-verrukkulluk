@@ -518,6 +518,7 @@ html, body {
 .article-title {
     color: var(--darker-green);
     font-size: 30px;
+    margin-bottom: -5px;
 }
 
 .comment-info-container {
@@ -778,4 +779,21 @@ html, body {
 
 .buttons3 {
     display: none;
+}
+
+.amount {
+    font-family: var(--heading);
+    color: var(--darker-green);
+}
+
+.amount-content {
+    font-size: 12px;
+}
+
+.amount-container {
+    margin-bottom: 20px;
+}
+
+.article-title-container {
+    margin-bottom: -15px;
 }

@@ -2,7 +2,7 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-<header class="navigation-detail">    
+    <header class="navigation-detail">    
         <img src="assets/img/logo-v2.png" class="menu-logo"/>
         <div class="menu-search">
             <img src="assets/img/search.png" class="search-icon"/> <span class="search-text">Zoeken</span>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>    
-</header>
+    </header>    
 {% endblock %}
 
 
@@ -80,18 +80,14 @@
                         <div class="row">
                         {# long description #}
                             <p class="long-description"> {{recipe_details.recipe.lange_omschrijving}} </p>                            
+                        </div>                        
+                        {# on list button and favorite #}                            
+                        <div class="col-md-5">
+                            <button type="button" class="list-button" className="">{{ "Op lijst" }}</button>
                         </div>
-                        
-                        {# on list button and favorite #}
-                            
-                                <div class="col-md-5">
-                                    <button type="button" class="list-button" className="">{{ "Op lijst" }}</button>
-                                </div>
-                                <div class="col-md-7">
-                                    <img src="assets/img/empty-heart.svg" class="empty-heart-icon"/>
-                                </div>
-                            
-                        
+                        <div class="col-md-7">
+                            <img src="assets/img/empty-heart.svg" class="empty-heart-icon"/>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -151,10 +147,14 @@
                             {#article info#}
                             <div class="article-info-container">
                                 {% for article in recipe_details.ingredients %}
-                                    <h2 class="article-title"> {{ article.ingredientWithArticle.naam }} </h2>
-                                    <p> {{ article.ingredientWithArticle.omschrijving }} </p>
-                                    <span> Hoeveelheid: </span>
-                                    <span> {{ article.ingredientWithArticle.aantal }} {{ article.ingredientWithArticle.eenheid }} </span>
+                                    <div class="article-title-container">
+                                        <h2 class="article-title"> {{ article.ingredientWithArticle.naam }} </h2>
+                                        <p> {{ article.ingredientWithArticle.omschrijving }} </p>
+                                    </div>    
+                                    <div class="amount-container">
+                                        <span class="amount"> Hoeveelheid: </span>
+                                        <span class="amount-content"> {{ article.ingredientWithArticle.aantal }} {{ article.ingredientWithArticle.eenheid }} </span>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>
@@ -208,7 +208,6 @@
                 </div>
             </div>    
         </div>    
-
     {% endfor %}
 
     <script>
@@ -326,5 +325,4 @@
         });
 
     </script>    
-
 {% endblock %}
