@@ -2,48 +2,217 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-<img src="assets/img/logo-v2.png"/>
+<header class="navigation-detail">    
+        <img src="assets/img/logo-v2.png" class="menu-logo"/>
+        <div class="menu-search">
+            <img src="assets/img/search.png" class="search-icon"/> <span class="search-text">Zoeken</span>
+        </div>
+        <div class="menu-button">
+            <div class="menu-button-trigger"> <img src="assets/img/menu-icon.svg" class="menu-icon"/>
+                <div class="dropdown">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="assets/img/logo-v2.png" class="dropdown-menu-logo"/>
+                        </div>
+                        <div class="col-md-3 dropdown-text">    
+                            <span>Mijn Favorieten</span>
+                        </div>
+                        <div class="col-md-4 dropdown-text">    
+                            <span>Mijn Boodschappenlijst</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</header>
 {% endblock %}
 
 
 {# nu de block content op in de main pagina vullen #}
 {% block content %}
-    {# Dit is commentaar #}
-
-    {# Print #}
-    <h1>Heading #1</h1>
-    <h2>Heading #2</h2>
-    <h3>Heading #3 t/m 5</h3>
-
-    <h4>Dit is de template {{  title }}</h4>
-
-{# Loop #}
-    <ul>
-    {% for recipe in data %}
-        <li>
-            <img src="{{ recipe.recipe.afbeelding }}" style="width: 100px; height: 100px;">
-
-            <h5>{{ recipe.recipe.titel }}</h5> {#hier stond geen heading bij origineel!#}
-            {# sub-loop #}
-            <ul>
-                {% for ingr in recipe.ingredients %}
-                     <li>
-                        <span {% if ingr.ingredientWithArticle.id|number_format < 2 %}style='color: #F00'{% endif %}><h1>{{  ingr.ingredientWithArticle.naam }}</h1></span>
-                        {# if #}
-                        {%  if ingr.ingredientWithArticle.id|number_format == 3 %}
-                            <strong>Dit is ID 3!</strong>
-                        {%  endif  %}
-                    </li>
+    {% for recipe_details in data %}
+        <div class="row content-detail-container">
+            <div class="content-detail">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img src="{{ recipe_details.recipe.afbeelding }}" class="recipe-image-detail">
+                    </div>
+                    <div class="col-md-7">
+                        {# Recipe info #}
+                        <div class="row">
+                            <div class="col-md-12 recipe-info-detail">
+                                <img src="assets/img/people-icon.png" class="recipe-icons"/> {{4}}
+                                <span class="euro-sign"> &euro; </span> <span>{{ recipe_details.price|round(2) }}</span>
+                                <img src="assets/img/calorie-icon.png" class="recipe-icons"/> <span>{{ recipe_details.calories|round(0) }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                        {# title and rating #}
+                            <div class="col-md-8">
+                                <h2 class="recipe-title-detail">
+                                    {{ recipe_details.recipe.titel }}                                        
+                                </h2>
+                            </div>    
+                            <div class="col-md-4 stars-detail">
+                            {#<span style="color: black; font-size: 16px">{{ recipe.stars|round(0) }}</span>#}
+                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
+                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
+                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
+                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
+                                <img src="assets/img/empty-star.svg" class="star-icons-detail"/>
+                            </div>    
+                        </div>
+                        <div class="row">
+                        {# kitchen and type #}
+                            <div class="col-md-6">
+                                <span class="recipe-kitchen">
+                                    Keuken                                                                                                       
+                                </span>
+                                <span class="recipe-kitchen-text">{{recipe_details.kitchen}}</span>                                
+                            </div>    
+                            <div class="col-md-6 type-container">
+                                <span class="recipe-type">
+                                    Type                                                                                                       
+                                </span>
+                                <span class="recipe-type-text">{{recipe_details.type}}</span>
+                            </div>   
+                        </div>
+                        <div class="row">
+                        {# long description #}
+                            <p class="long-description"> {{recipe_details.recipe.lange_omschrijving}} </p>                            
+                        </div>
                         
+                        {# on list button and favorite #}
+                            
+                                <div class="col-md-5">
+                                    <button type="button" class="list-button" className="">{{ "Op lijst" }}</button>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="assets/img/empty-heart.svg" class="empty-heart-icon"/>
+                                </div>
+                            
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "row recipe-detail-container">
+            <div class="recipe-detail">
+                <div class="col-md-12">
+
+                    {#buttons#}
+                    <div class="row">                        
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-ing" className="" id="btn_ingredients">{{ "Ingredienten" }}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-step" className="" id="btn_steps">{{ "Bereidingswijze" }}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-com" className="" id="btn_comments">{{ "Opmerkingen" }}</button>
+                        </div>                        
+                    </div>
+
+                    {# three different divs based on button pressed #}
                     
-                {% endfor %}
-            </ul>
-        </li>
+                    {#ingredient-info#}
+                    <div class="row ingredient-div" id="ingredient-info">
+                        <div class="col-md-2">
+                            {#article picture#}
+                        </div>
+                        <div class="col-md-5">
+                            {#article info#}
+                            <div class="article-info-container">
+                                {% for article in recipe_details.ingredients %}
+                                    <h2 class="article-title"> {{ article.ingredientWithArticle.naam }} </h2>
+                                    <p> {{ article.ingredientWithArticle.omschrijving }} </p>
+                                    <span> Hoeveelheid: </span>
+                                    <span> {{ article.ingredientWithArticle.aantal }} {{ article.ingredientWithArticle.eenheid }} </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {# steps #}
+                    <div class="row steps-div" id="steps">
+                        <div class="col-md-7">
+                            <div class="step-info-container">
+                                {% for steps in recipe_details.steps %}                                    
+                                    <div class="row step-info">
+                                        <div class="col-md-3 step-circle-container">
+                                            <span class="step-circle"> {{ steps.nummeriekveld }}. </span>                                    
+                                        </div>
+                                        <div class="col-md-9 step-text">
+                                            <span> {{ steps.tekstveld }} </span>                                        
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>                       
+                    </div>
+
+                    {# comments #}
+                    <div class="row comment-div" id="comments">
+                        <div class="col-md-7">
+                            <div class="comment-info-container">                            
+                                {% for comments in recipe_details.remarks %}
+                                    {% for comment in comments %}
+                                        <div class="row comment-info">
+                                            <div class="col-md-3 user-container">
+                                                <img src="{{comment.afbeelding}}" class="user-picture"/>
+                                            </div>
+                                            <div class="col-md-9 comment-text">
+                                                <h2 class="comment-title"> {{ comment.user_name }} </h2>
+                                                <p class="comment-content"> {{ comment.tekstveld }} </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {#green arrow#}
+                    <div class="row">                     
+                     <div>
+                        <img src="assets/img/arrow-down.svg" class="arrow-down-icon"/>
+                     </div>
+                    </div>    
+                </div>
+            </div>    
+        </div>    
+
     {% endfor %}
-    <ul>
-     {# Dump #}
-       <pre>
-        {{ dump(data) }}
-       </pre>
+
+    <script>
+        var btn_ingredients = document.getElementById("btn_ingredients");
+        var btn_steps = document.getElementById("btn_steps");
+        var btn_comments = document.getElementById("btn_comments");
+
+        var div_ingredients = document.getElementById("ingredient-info");
+        var div_steps = document.getElementById("steps");
+        var div_comments = document.getElementById("comments");
+
+        btn_ingredients.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'flex';
+            div_steps.style.display = 'none';
+            div_comments.style.display = 'none';
+            
+        });       
+
+        btn_steps.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'none';
+            div_steps.style.display = 'flex';
+            div_comments.style.display = 'none';
+        });        
+
+        btn_comments.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'none';
+            div_steps.style.display = 'none';
+            div_comments.style.display = 'flex';
+        });
+        
+    </script>    
 
 {% endblock %}
