@@ -100,9 +100,9 @@
         <div class = "row recipe-detail-container">
             <div class="recipe-detail">
                 <div class="col-md-12">
-
-                    {#buttons#}
-                    <div class="row">                        
+                    {# 3 sets of buttons, z-index different based on which on is clicked #}
+                    {#buttons-ing#}
+                    <div class="row buttons1" id="btn-set1">                        
                         <div class="col-md-2">
                             <button type="button" class="recipe-info-button-ing" className="" id="btn_ingredients">{{ "Ingredienten" }}</button>
                         </div>
@@ -111,6 +111,32 @@
                         </div>
                         <div class="col-md-2">
                             <button type="button" class="recipe-info-button-com" className="" id="btn_comments">{{ "Opmerkingen" }}</button>
+                        </div>                        
+                    </div>
+
+                    {#buttons-steps#}
+                    <div class="row buttons2" id="btn-set2">                        
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-ing2" className="" id="btn_ingredients2">{{ "Ingredienten" }}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-step2" className="" id="btn_steps2">{{ "Bereidingswijze" }}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-com2" className="" id="btn_comments2">{{ "Opmerkingen" }}</button>
+                        </div>                        
+                    </div>
+
+                    {#buttons-com#}
+                    <div class="row buttons3" id="btn-set3">                        
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-ing3" className="" id="btn_ingredients3">{{ "Ingredienten" }}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-step3" className="" id="btn_steps3">{{ "Bereidingswijze" }}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="recipe-info-button-com3" className="" id="btn_comments3">{{ "Opmerkingen" }}</button>
                         </div>                        
                     </div>
 
@@ -190,14 +216,30 @@
         var btn_steps = document.getElementById("btn_steps");
         var btn_comments = document.getElementById("btn_comments");
 
+        var btn_ingredients2 = document.getElementById("btn_ingredients2");
+        var btn_steps2 = document.getElementById("btn_steps2");
+        var btn_comments2 = document.getElementById("btn_comments2");
+
+        var btn_ingredients3 = document.getElementById("btn_ingredients3");
+        var btn_steps3 = document.getElementById("btn_steps3");
+        var btn_comments3 = document.getElementById("btn_comments3");
+
         var div_ingredients = document.getElementById("ingredient-info");
         var div_steps = document.getElementById("steps");
         var div_comments = document.getElementById("comments");
+
+        var btn_set1 = document.getElementById("btn-set1");
+        var btn_set2 = document.getElementById("btn-set2");
+        var btn_set3 = document.getElementById("btn-set3");
 
         btn_ingredients.addEventListener('click', ()=>{
             div_ingredients.style.display = 'flex';
             div_steps.style.display = 'none';
             div_comments.style.display = 'none';
+
+            btn_set1.style.display = 'flex';
+            btn_set2.style.display = 'none';
+            btn_set3.style.display = 'none';
             
         });       
 
@@ -205,14 +247,84 @@
             div_ingredients.style.display = 'none';
             div_steps.style.display = 'flex';
             div_comments.style.display = 'none';
+
+            btn_set1.style.display = 'none';
+            btn_set2.style.display = 'flex';
+            btn_set3.style.display = 'none';
         });        
 
         btn_comments.addEventListener('click', ()=>{
             div_ingredients.style.display = 'none';
             div_steps.style.display = 'none';
             div_comments.style.display = 'flex';
+
+            btn_set1.style.display = 'none';
+            btn_set2.style.display = 'none';
+            btn_set3.style.display = 'flex';
         });
         
+        btn_ingredients2.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'flex';
+            div_steps.style.display = 'none';
+            div_comments.style.display = 'none';
+
+            btn_set1.style.display = 'flex';
+            btn_set2.style.display = 'none';
+            btn_set3.style.display = 'none';
+            
+        });       
+
+        btn_steps2.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'none';
+            div_steps.style.display = 'flex';
+            div_comments.style.display = 'none';
+
+            btn_set1.style.display = 'none';
+            btn_set2.style.display = 'flex';
+            btn_set3.style.display = 'none';
+        });        
+
+        btn_comments2.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'none';
+            div_steps.style.display = 'none';
+            div_comments.style.display = 'flex';
+
+            btn_set1.style.display = 'none';
+            btn_set2.style.display = 'none';
+            btn_set3.style.display = 'flex';
+        });
+
+        btn_ingredients3.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'flex';
+            div_steps.style.display = 'none';
+            div_comments.style.display = 'none';
+
+            btn_set1.style.display = 'flex';
+            btn_set2.style.display = 'none';
+            btn_set3.style.display = 'none';
+            
+        });       
+
+        btn_steps3.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'none';
+            div_steps.style.display = 'flex';
+            div_comments.style.display = 'none';
+
+            btn_set1.style.display = 'none';
+            btn_set2.style.display = 'flex';
+            btn_set3.style.display = 'none';
+        });        
+
+        btn_comments3.addEventListener('click', ()=>{
+            div_ingredients.style.display = 'none';
+            div_steps.style.display = 'none';
+            div_comments.style.display = 'flex';
+
+            btn_set1.style.display = 'none';
+            btn_set2.style.display = 'none';
+            btn_set3.style.display = 'flex';
+        });
+
     </script>    
 
 {% endblock %}
