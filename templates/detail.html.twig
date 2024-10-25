@@ -2,29 +2,31 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-    <header class="navigation-detail">    
-        <img src="assets/img/logo-v2.png" class="menu-logo"/>
-        <div class="menu-search">
-            <img src="assets/img/search.png" class="search-icon"/> <span class="search-text">Zoeken</span>
-        </div>
-        <div class="menu-button">
-            <div class="menu-button-trigger"> <img src="assets/img/menu-icon.svg" class="menu-icon"/>
-                <div class="dropdown">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <img src="assets/img/logo-v2.png" class="dropdown-menu-logo"/>
-                        </div>
-                        <div class="col-md-3 dropdown-text">    
-                            <span>Mijn Favorieten</span>
-                        </div>
-                        <div class="col-md-4 dropdown-text">    
-                            <span>Mijn Boodschappenlijst</span>
+    {% for recipe_details in data %}
+        <header class="navigation-detail" style="background-image: url('{{ recipe_details.recipe.afbeelding }}')">    
+            <img src="assets/img/logo-v2.png" class="menu-logo"/>
+            <div class="menu-search">
+                <img src="assets/img/search.png" class="search-icon"/> <span class="search-text">Zoeken</span>
+            </div>
+            <div class="menu-button">
+                <div class="menu-button-trigger"> <img src="assets/img/menu-icon.svg" class="menu-icon"/>
+                    <div class="dropdown">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img src="assets/img/logo-v2.png" class="dropdown-menu-logo"/>
+                            </div>
+                            <div class="col-md-3 dropdown-text">    
+                                <span>Mijn Favorieten</span>
+                            </div>
+                            <div class="col-md-4 dropdown-text">    
+                                <span>Mijn Boodschappenlijst</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>    
-    </header>    
+            </div>    
+        </header>
+    {% endfor %}
 {% endblock %}
 
 
@@ -54,12 +56,15 @@
                                 </h2>
                             </div>    
                             <div class="col-md-4 stars-detail">
-                            {#<span style="color: black; font-size: 16px">{{ recipe.stars|round(0) }}</span>#}
-                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
-                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
-                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
-                                <img src="assets/img/full-star.svg" class="star-icons-detail"/>
-                                <img src="assets/img/empty-star.svg" class="star-icons-detail"/>
+                                {% set total = 5 %}
+                                {% set full_stars = ( recipe_details.stars|round(0) ) %}
+                                {% set empty_stars = total - full_stars %}
+                                {% for i in 1 .. full_stars %}
+                                    <img src="assets/img/full-star.svg" class="star-icons-detail"/>     
+                                {% endfor %}
+                                {% for j in 1 .. empty_stars %}
+                                    <img src="assets/img/empty-star.svg" class="star-icons-detail"/>     
+                                {% endfor %}                                
                             </div>    
                         </div>
                         <div class="row">
@@ -85,8 +90,11 @@
                         <div class="col-md-5">
                             <button type="button" class="list-button" className="">{{ "Op lijst" }}</button>
                         </div>
-                        <div class="col-md-7">
-                            <img src="assets/img/empty-heart.svg" class="empty-heart-icon"/>
+                        <div class="col-md-7 full-heart-container" id="full-container">
+                            <button class="full-heart-button" id="full-heart"><img src="assets/img/full-heart.svg" class="full-heart-icon"/></button>
+                        </div>
+                        <div class="col-md-7 empty-heart-container" id="empty-container">
+                            <button class="empty-heart-button" id="empty-heart"><img src="assets/img/empty-heart.svg" class="empty-heart-icon"></button>
                         </div>  
                     </div>
                 </div>
@@ -164,18 +172,18 @@
                     <div class="row steps-div" id="steps">
                         <div class="col-md-7">
                             <div class="step-info-container">
-                                {% for steps in recipe_details.steps %}                                    
+                                {% for steps in recipe_details.steps %}
                                     <div class="row step-info">
                                         <div class="col-md-3 step-circle-container">
-                                            <span class="step-circle"> {{ steps.nummeriekveld }}. </span>                                    
+                                            <span class="step-circle"> {{ steps.nummeriekveld }}. </span>
                                         </div>
                                         <div class="col-md-9 step-text">
-                                            <span> {{ steps.tekstveld }} </span>                                        
+                                            <span> {{ steps.tekstveld }} </span>
                                         </div>
                                     </div>
                                 {% endfor %}
                             </div>
-                        </div>                       
+                        </div>
                     </div>
 
                     {# comments #}
@@ -230,6 +238,12 @@
         var btn_set1 = document.getElementById("btn-set1");
         var btn_set2 = document.getElementById("btn-set2");
         var btn_set3 = document.getElementById("btn-set3");
+
+        var btn_full_heart = document.getElementById("full-heart");
+        var btn_empty_heart = document.getElementById("empty-heart");
+
+        var full_container = document.getElementById("full-container");
+        var empty_container = document.getElementById("empty-container");
 
         btn_ingredients.addEventListener('click', ()=>{
             div_ingredients.style.display = 'flex';
@@ -322,6 +336,16 @@
             btn_set1.style.display = 'none';
             btn_set2.style.display = 'none';
             btn_set3.style.display = 'flex';
+        });
+
+        btn_full_heart.addEventListener('click', ()=>{
+            full_container.style.display = 'none';
+            empty_container.style.display = 'flex';
+        });
+
+        btn_empty_heart.addEventListener('click', ()=>{
+            full_container.style.display = 'flex';
+            empty_container.style.display = 'none';
         });
 
     </script>    

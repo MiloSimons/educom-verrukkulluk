@@ -149,7 +149,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-image: url("../img/background.jpg"); /*relevant recipe picture*/
+    
     background-position: center center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -381,7 +381,7 @@ html, body {
 
 .star-icons-detail {
     height: 15px;
-    width: 15px;    
+    width: 15px;   
 }
 
 .stars {
@@ -489,20 +489,48 @@ html, body {
     justify-content: flex-end; 
 }
 
-.empty-heart-icon {
+.empty-heart-button {
     height: 35px;
     width: 35px;
     position: absolute;
     bottom: 20px;
     right: 20px;
+    background: transparent;
+    border-color: transparent;
+}
+
+.empty-heart-icon {
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.empty-heart-container {
+    display: flex;
+}
+
+.full-heart-button {
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: transparent;
+    border-color: transparent;
 }
 
 .full-heart-icon {
     height: 35px;
     width: 35px;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.full-heart-container {
+    display: none;
 }
 
 .article-info-container {
