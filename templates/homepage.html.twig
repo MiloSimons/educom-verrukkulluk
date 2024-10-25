@@ -50,12 +50,15 @@
                                     </h2>
                                 </div>    
                                 <div class="col-md-4 stars">
-                                {#<span style="color: black; font-size: 16px">{{ recipe.stars|round(0) }}</span>#}
-                                    <img src="assets/img/full-star.svg" class="star-icons"/>
-                                    <img src="assets/img/full-star.svg" class="star-icons"/>
-                                    <img src="assets/img/full-star.svg" class="star-icons"/>
-                                    <img src="assets/img/full-star.svg" class="star-icons"/>
-                                    <img src="assets/img/empty-star.svg" class="star-icons"/>
+                                    {% set total = 5 %}
+                                    {% set full_stars = ( recipe.stars|round(0) ) %}
+                                    {% set empty_stars = total - full_stars %}
+                                    {% for i in 1 .. full_stars %}
+                                        <img src="assets/img/full-star.svg" class="star-icons"/>     
+                                    {% endfor %}
+                                    {% for j in 1 .. empty_stars %}
+                                        <img src="assets/img/empty-star.svg" class="star-icons"/>     
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="row">    
