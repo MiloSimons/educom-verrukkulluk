@@ -197,15 +197,16 @@ html, body {
     z-index: 5000 !important;
 }
 
-.menu-button-trigger:hover .dropdown {
+/*.menu-button-trigger:hover .dropdown {
     top: 0px;
-}
+}*/
 
 .dropdown {
     position: fixed;
-    top: -400px;
-    left: 0;
-    right: 0;
+    display: none;
+    top: 0;
+    left: 220;
+    right: 220;
     height: 150px;
     background-color: #FFF;
     transition: all 0.4s ease;
@@ -218,6 +219,7 @@ html, body {
     box-shadow: 0px 4px 8px 1px rgba(0,0,0,0.5);
     border-color: black !important;
     border: 1px solid;
+    z-index: 500;
 }
 
 .dropdown-text {

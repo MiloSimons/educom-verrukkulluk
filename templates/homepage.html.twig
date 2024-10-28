@@ -9,8 +9,8 @@
             <img src="assets/img/search.png" class="search-icon"/> <span class="search-text">Zoeken</span>
         </div>
         <div class="menu-button">
-            <div class="menu-button-trigger"> <img src="assets/img/menu-icon.svg" class="menu-icon"/>
-                <div class="dropdown">
+            <div class="menu-button-trigger"> <img src="assets/img/menu-icon.svg" class="menu-icon" id="menu-trigger"/>
+                <div class="dropdown" id="dropdown">
                     <div class="row">
                         <div class="col-md-5">
                             <img src="assets/img/logo-v2.png" class="dropdown-menu-logo"/>
@@ -99,6 +99,19 @@
          
     </section>
     
-    {#row for page selection#}
+    <script>
+        var menu_trigger = document.getElementById("menu-trigger");
+        var dropdown = document.getElementById("dropdown");
+
+        menu_trigger.addEventListener('click', ()=>{
+                dropdown.style.display = 'block';
+                menu_trigger.style.display = 'none';
+            })
+
+        dropdown.addEventListener('click', ()=>{
+            dropdown.style.display = 'none';
+            menu_trigger.style.display = 'flex';
+        })
+    </script>
      
 {% endblock %}
