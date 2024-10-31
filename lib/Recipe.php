@@ -89,7 +89,7 @@ class Recipe {
         return $type;
     }*/  
     
-   private function selectRating($allRecipeInfo) {
+    public function selectRating($allRecipeInfo) {
         $ratings = [];
         foreach ($allRecipeInfo as $recipeInfo) {
             foreach($recipeInfo as $r){
@@ -168,7 +168,7 @@ class Recipe {
         return $price;
     }
 
-    private function calcAVGRating($ratings) {
+    public function calcAVGRating($ratings) {
         $ratingTotal = 0;
         $count = 0;
         foreach ($ratings as $rating) {

@@ -383,7 +383,7 @@ html, body {
 
 .star-icons-detail {
     height: 15px;
-    width: 15px;   
+    width: 15px;
 }
 
 .stars {
@@ -827,3 +827,30 @@ html, body {
 .article-title-container {
     margin-bottom: -15px;
 }
+
+.star {
+    cursor: pointer;   
+    width: 15px;
+    height: 15px;
+    float: left;
+    background-image: url("../img/empty-star.svg");
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+}
+
+/*.star:hover {
+    -webkit-box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.5);
+}*/
+
+.full {
+    background-image: url("../img/full-star.svg");
+}
+
+.red-star {
+    background-image: url("../img/red-star.svg");
+}
+
+
+

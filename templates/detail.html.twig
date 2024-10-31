@@ -55,16 +55,12 @@
                                     {{ recipe_details.recipe.titel }}                                        
                                 </h2>
                             </div>    
-                            <div class="col-md-4 stars-detail">
-                                {% set total = 5 %}
-                                {% set full_stars = ( recipe_details.stars|round(0) ) %}
-                                {% set empty_stars = total - full_stars %}
-                                {% for i in 1 .. full_stars %}
-                                    <img src="assets/img/full-star.svg" class="star-icons-detail"/>     
-                                {% endfor %}
-                                {% for j in 1 .. empty_stars %}
-                                    <img src="assets/img/empty-star.svg" class="star-icons-detail"/>     
-                                {% endfor %}                                
+                            <div class="col-md-4 stars-detail" id="star-container" current-average={{recipe_details.stars|round(0)}} recipe-id={{recipe_details.recipe.id}}>
+                                <div class="star" data-value="1" id="star1"></div>
+                                <div class="star" data-value="2" id="star2"></div>
+                                <div class="star" data-value="3" id="star3"></div>
+                                <div class="star" data-value="4" id="star4"></div>
+                                <div class="star" data-value="5" id="star5"></div>
                             </div>    
                         </div>
                         <div class="row">
@@ -215,38 +211,47 @@
                     </div>    
                 </div>
             </div>    
-        </div>    
+        </div>
+
+
+        {# rating tester #}
+        <div class="row">
+            
+        </div>
+
+            
+
     {% endfor %}
 
     <script>
-        var btn_ingredients = document.getElementById("btn_ingredients");
-        var btn_steps = document.getElementById("btn_steps");
-        var btn_comments = document.getElementById("btn_comments");
+        var btn_ingredients  = document.getElementById("btn_ingredients");
+        var btn_steps        = document.getElementById("btn_steps");
+        var btn_comments     = document.getElementById("btn_comments");
 
         var btn_ingredients2 = document.getElementById("btn_ingredients2");
-        var btn_steps2 = document.getElementById("btn_steps2");
-        var btn_comments2 = document.getElementById("btn_comments2");
+        var btn_steps2       = document.getElementById("btn_steps2");
+        var btn_comments2    = document.getElementById("btn_comments2");
 
         var btn_ingredients3 = document.getElementById("btn_ingredients3");
-        var btn_steps3 = document.getElementById("btn_steps3");
-        var btn_comments3 = document.getElementById("btn_comments3");
+        var btn_steps3       = document.getElementById("btn_steps3");
+        var btn_comments3    = document.getElementById("btn_comments3");
 
-        var div_ingredients = document.getElementById("ingredient-info");
-        var div_steps = document.getElementById("steps");
-        var div_comments = document.getElementById("comments");
+        var div_ingredients  = document.getElementById("ingredient-info");
+        var div_steps        = document.getElementById("steps");
+        var div_comments     = document.getElementById("comments");
 
-        var btn_set1 = document.getElementById("btn-set1");
-        var btn_set2 = document.getElementById("btn-set2");
-        var btn_set3 = document.getElementById("btn-set3");
+        var btn_set1         = document.getElementById("btn-set1");
+        var btn_set2         = document.getElementById("btn-set2");
+        var btn_set3         = document.getElementById("btn-set3");
 
-        var btn_full_heart = document.getElementById("full-heart");
-        var btn_empty_heart = document.getElementById("empty-heart");
+        var btn_full_heart   = document.getElementById("full-heart");
+        var btn_empty_heart  = document.getElementById("empty-heart");
 
-        var full_container = document.getElementById("full-container");
-        var empty_container = document.getElementById("empty-container");
+        var full_container   = document.getElementById("full-container");
+        var empty_container  = document.getElementById("empty-container");
 
-        var menu_trigger = document.getElementById("menu-trigger");
-        var dropdown = document.getElementById("dropdown");
+        var menu_trigger     = document.getElementById("menu-trigger");
+        var dropdown         = document.getElementById("dropdown");
 
 
         btn_ingredients.addEventListener('click', ()=>{
@@ -362,5 +367,79 @@
             menu_trigger.style.display = 'flex';
         })
 
-    </script>    
+        // Rating system
+        $(document).ready( function() {
+
+            // set initial average rating
+            var star1  = document.getElementById("star1");
+            var star2  = document.getElementById("star2");
+            var star3  = document.getElementById("star3");
+            var star4  = document.getElementById("star4");
+            var star5  = document.getElementById("star5");
+
+            const stars = [star1, star2, star3, star4, star5];
+
+            var full_stars = document.getElementById("star-container").getAttribute("current-average");
+            var recipe_id = document.getElementById("star-container").getAttribute("recipe-id");
+            
+            for (let i = 0; i < full_stars; i++) {
+                stars[i].classList.add("full")
+            }
+
+            //change rating after clicking
+            $(".star").click( function() {
+                const value = $(this).attr('data-value')                
+                
+                //show new average rating in yellow, own rating in red. Make the color with less stars "overlay" the color with more stars
+                $.ajax({
+                    url: "http://localhost/educom-verrukkulluk/index.php?recipe_id="+ recipe_id +"&rating="+ value +"&action=rating",
+                    method: "GET",
+                    success: function(result) { 
+                        
+                        newAverage = Math.round(result.newAverage);
+                        rating = result.rating;
+
+                        //make all stars empty
+                        $(".star").removeClass("full")
+                        $(".star").removeClass("red-star")
+
+                        //make rated stars red and new average yellow
+                        if(newAverage > value) {
+                            $(".star").each( (index, elem) => {
+                                const itemValue = $(elem).attr('data-value')
+                                if(itemValue <= newAverage) {
+                                    $(elem).addClass("full")
+                                }                                    
+                            })
+                            $(".star").each( (index, elem) => {
+                                const itemValue = $(elem).attr('data-value')
+                                if(itemValue <= value) {
+                                    $(elem).removeClass("full")
+                                    $(elem).addClass("red-star")
+                                }                                    
+                            })
+                        }
+
+                        if(value >= newAverage) {
+                            $(".star").each( (index, elem) => {
+                                const itemValue = $(elem).attr('data-value')
+                                if(itemValue <= value) {
+                                    $(elem).addClass("red-star")
+                                }                                    
+                            })
+                            $(".star").each( (index, elem) => {
+                                const itemValue = $(elem).attr('data-value')
+                                if(itemValue <= newAverage) {
+                                    $(elem).removeClass("red-star")
+                                    $(elem).addClass("full")
+                                }                                    
+                            })
+                        }
+                    }
+                })
+            })               
+        })
+
+    </script>
+
 {% endblock %}
