@@ -35,15 +35,11 @@ $recipes = new Recipe($db->getConnection());
 $groceryLists = new GroceryList($db->getConnection());
 
 $allRecipeData = $recipes->getRecipe();
-//var_dump($allRecipeData);
-/// VERWERK 
-
-/// RETURN
-//var_dump($allRecipeData);
 
 /*
 URL:
-http://localhost/index.php?gerecht_id=4&action=detail
+HOMEPAGE: http://localhost/index.php?&action=homepage
+DETAILPAGE: http://localhost/index.php?gerecht_id= + GERECHT_ID + &action=detail
 */
 
 $recipe_id = isset($_GET["recipe_id"]) ? $_GET["recipe_id"] : "";
@@ -53,52 +49,49 @@ $action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
 
 switch($action) {
 
-        case "homepage": {
-            $data = $recipes->getRecipe();
-            $template = 'homepage.html.twig';
-            $title = "homepage";
-            break;
+    case "homepage": {
+        $data = $recipes->getRecipe();
+        $template = 'homepage.html.twig';
+        $title = "homepage";
+        break;
+    }
+
+    case "detail": {
+        $data = $recipes->getRecipe($recipe_id);
+        $template = 'detail.html.twig';
+        $title = "detail page";
+        break;
+    }
+
+    case "rating": {
+        header('Content-type: application/json');
+        $recipe_info = $recipeInfos->getRecipeInfo($recipe_id);
+        $recipe = $recipes->getRecipe($recipe_id);
+
+        // get current average
+        foreach($recipe as $recipeInfo) {
+            $AVGrating = $recipeInfo["stars"];                
         }
-
-        case "detail": {
-            $data = $recipes->getRecipe($recipe_id);
-            $template = 'detail.html.twig';
-            $title = "detail page";
-            break;
+        
+        // add new rating to database
+        $recipeInfos->addRating($recipe_id, $rating);
+        
+        // calculate new average
+        $ratings = $recipes->selectRating($recipe_info);       
+        $ratingTotal = $rating;
+        $count = 1;
+        foreach ($ratings as $rat) {
+            $ratingTotal += floatval($rat["nummeriekveld"]);
+            $count++;
         }
+        $ratingAVG = $ratingTotal/$count;
 
-        case "rating": {
-            header('Content-type: application/json');
-            $recipe_info = $recipeInfos->getRecipeInfo($recipe_id);
-            $recipe = $recipes->getRecipe($recipe_id);
-
-            // get current average
-            foreach($recipe as $recipeInfo) {
-                $AVGrating = $recipeInfo["stars"];                
-            }
-            
-            // add new rating to database
-            $recipeInfos->addRating($recipe_id, $rating);
-            
-            // calculate new average
-            $ratings = $recipes->selectRating($recipe_info);       
-            $ratingTotal = $rating;
-            $count = 1;
-            foreach ($ratings as $rat) {
-                $ratingTotal += floatval($rat["nummeriekveld"]);
-                $count++;
-            }
-            $ratingAVG = $ratingTotal/$count;
-
-            $output = array("succes"=>true, "newAverage"=> $ratingAVG, "rating"=>(int)$rating);
-            echo json_encode($output);
-                    
-            die();
-            break;
-        }
-
-        /// etc
-
+        $output = array("succes"=>true, "newAverage"=> $ratingAVG, "rating"=>(int)$rating);
+        echo json_encode($output);
+                
+        die();
+        break;
+    }
 }
 
 

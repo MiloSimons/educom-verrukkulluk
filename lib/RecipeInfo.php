@@ -38,8 +38,7 @@ class RecipeInfo {
         return $user;
     }
 
-    //private?
-    public function addFavorite($recipe_id, $user_id) { //of moet je hier een user meegeven ipv een user_id? and what about date?
+    public function addFavorite($recipe_id, $user_id) {
         // Only add favorite if it does not exists already for that recipe + user combo        
         $sql = "select * from gerecht_info where gerecht_id = $recipe_id and user_id = $user_id and record_type = 'F'";
         $result = mysqli_query($this->connection, $sql);

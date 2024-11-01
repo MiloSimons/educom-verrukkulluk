@@ -35,7 +35,7 @@ class Recipe {
             $user        = $this->selectUser($row["user_id"]);
             $ingredients = $this->selectIngredient($row["id"]);
             $recipeInfo  = $this->selectRecipeInfo($row["id"]);
-            $kitchen     = $this->selectKitchenOrType($row["keuken_id"]); //or make two seperate functions selectkitchen and selecttype
+            $kitchen     = $this->selectKitchenOrType($row["keuken_id"]);
             $type        = $this->selectKitchenOrType($row["type_id"]);
             $favorites   = $this->determineFavorite($recipeInfo);
             $ratings     = $this->selectRating($recipeInfo);
@@ -81,13 +81,6 @@ class Recipe {
         $kitchenOrType = $kitchenType["omschrijving"];
         return $kitchenOrType;
     }
-
-    // OR MAKE TWO SEPARTE FUNCTIONS, 1 LIKE BELOW AND 1 WHERE TYPE = KITCHEN?
-    /*private function selectType($type_id) {
-        $kitchenType = $this->keukType->getKeukenType($type_id);
-        $type = $kitchenType["omschrijving"];
-        return $type;
-    }*/  
     
     public function selectRating($allRecipeInfo) {
         $ratings = [];
@@ -101,7 +94,6 @@ class Recipe {
         return $ratings;
     }
     
-    //SORT BASED ON NUMMERIEKVELD? --> e.g., step 1, step 2, etc.???
     private function selectSteps($allRecipeInfo) {
         $steps = [];
         foreach ($allRecipeInfo as $recipeInfo) {
